@@ -6,7 +6,7 @@ export const fetchBlogById = async (id) => {
   return response?.data?.data[0] ?? null; // 👈 MUST RETURN
 };
 export const fetchBlogs = async () => {
-  const { data } = await api.get("/api/Blog/getUserBlog");
+  const { data } = await api.get("/api/Blog/getActiveUserBlog");
   return data?.data;
 };
 export const addComment = async (data) => {

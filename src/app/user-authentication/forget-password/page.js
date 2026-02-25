@@ -9,23 +9,20 @@ import {
 } from "react-icons/fa";
 import { login } from "@/app/services/authentication.service";
 import { useRouter } from "next/navigation";
-
+import { forgetPassword } from "@/app/services/authentication.service";
 export default function LoginPage() {
   const router = useRouter();
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [apiMessage, setApiMessage] = useState("");
   const [apiError, setApiError] = useState("");
   const [errors, setErrors] = useState({});
   const [query, setQuery] = useState({
-    username: "",
-    password: "",
+    email: "",
   });
   const mutation = useMutation({
-    mutationFn: login,
+    mutationFn: forgetPassword,
     onSuccess: (data) => {
       setQuery({
-        username: "",
-        password: "",
+        email: "",
       });
       setApiMessage(data?.message || "Query submitted successfully!");
       setTimeout(() => {
@@ -53,15 +50,8 @@ export default function LoginPage() {
     let newErrors = {};
 
     // Full Name
-    if (!data.username.trim()) {
-      newErrors.username = "Email is required";
-    }
-
-    // Password
-    if (!data.password.trim()) {
-      newErrors.password = "Password is required";
-    } else if (data.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
+    if (!data.email.trim()) {
+      newErrors.email = "Email is required";
     }
 
     return newErrors;
@@ -102,69 +92,17 @@ export default function LoginPage() {
             <div className="input-container">
               <input
                 type="email"
-                name="username"
+                name="email"
                 placeholder="Enter Your Email"
-                value={query.username}
+                value={query.email}
                 onChange={handleChange}
                 className="text-input-field"
               />
-              {errors.username && (
-                <p className="text-red-500 text-sm">{errors.username}</p>
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email}</p>
               )}
             </div>
           </div>
-
-          {/* Password Field */}
-          <div className="form-field-group">
-            <div className="label-row-container">
-              <label className="field-label">
-                <FaLock />
-                Password
-              </label>
-            </div>
-            <div className="input-container">
-              <input
-                type={isPasswordVisible ? "text" : "password"}
-                name="password"
-                placeholder="Enter Your password"
-                value={query.password}
-                onChange={handleChange}
-                className="text-input-field"
-              />
-              <button
-                type="button"
-                onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                className="password-visibility-toggle"
-              >
-                {isPasswordVisible ? (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path
-                      d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M1 1l22 22"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                ) : (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path
-                      d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                      strokeWidth="2"
-                    />
-                    <circle cx="12" cy="12" r="3" strokeWidth="2" />
-                  </svg>
-                )}
-              </button>
-            </div>
-            {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password}</p>
-            )}
-          </div>
-          <p className="text-right underline text-blue-500 cursor-pointer" onClick={() => router.push("/user-authentication/forget-password")}>Forget Password</p>
           {apiMessage && (
             <div className="bg-green-100 text-green-700 text-center px-4 py-2 rounded-md">
               {apiMessage}
@@ -177,7 +115,7 @@ export default function LoginPage() {
           )}
           {/* Sign In Button */}
           <button type="submit" className="sign-in-button">
-            <span>{mutation.isPending ? "Loging..." : "LogIn"} </span>
+            <span>{mutation.isPending ? "Sending Email..." : "Send Email"} </span>
             <FaArrowAltCircleRight />
           </button>
 
@@ -191,9 +129,9 @@ export default function LoginPage() {
 
         {/* Sign Up Link */}
         <p className="sign-up-text">
-          Don't have an account? 
-          <button className="create-account-btn" onClick={() => router.push("/user-authentication/register")} >
-            Register
+          Remember your password?
+          <button className="create-account-btn" onClick={() => router.push("/user-authentication/login")} >
+            Log in
             <svg
               className="small-arrow-icon"
               viewBox="0 0 24 24"

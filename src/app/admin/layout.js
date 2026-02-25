@@ -20,7 +20,7 @@ import {
   RiCommentLine
 } from 'react-icons/ri';
 import { 
-  RiFolderLine, 
+  RiFolderLine, RiUserLine 
 } from "react-icons/ri";
 
 import ReduxProvider from '../components/ReduxProvider';
@@ -33,6 +33,7 @@ const menuItems = [
   { icon: RiFolderLine, label: 'Category', href: '/admin/category', badge: null },
   { icon: RiArticleLine, label: 'Blog', href: '/admin/blog', badge: null },
     { icon: RiChat1Line , label: 'Comment', href: '/admin/comment', badge: null },
+       { icon: RiUserLine  , label: 'Registeration', href: '/admin/registration', badge: null },
 
 ];
 

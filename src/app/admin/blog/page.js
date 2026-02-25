@@ -402,6 +402,7 @@ export default function BlogAdminPage() {
                           <div className="flex items-center justify-end gap-2 md:gap-1 ">
                             <Link
                               href={`/pages/blog/${blogData.blogId}`}
+                              
                               target="_blank"
                               className="p-1.5 md:p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 hover:text-[#D16655] transition-colors"
                               title="View"

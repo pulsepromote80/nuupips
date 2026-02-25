@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // API endpoint for admin login
 const API_URL = 'https://agentondemand.ai/api/Blog/adminLogin';
+const GET_ALL_REGISTRATION="https://agentondemand.ai/api/Authentication/GetAllUserRegistration"
 
 // Create async thunk for admin login
 export const adminLogin = createAsyncThunk(
@@ -20,12 +21,28 @@ export const adminLogin = createAsyncThunk(
     }
 );
 
+export const getAllRegistration = createAsyncThunk(
+    'auth/getAllRegistration',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(GET_ALL_REGISTRATION);
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                return rejectWithValue(error.response.data);
+            }
+            return rejectWithValue({ message: 'Network error occurred' });
+        }
+    }
+);
+
 const initialState = {
     user: null,
     token: null,
     isAuthenticated: false,
     loading: false,
     error: null,
+    UserData: null
 };
 
 const authSlice = createSlice({
@@ -58,7 +75,19 @@ const authSlice = createSlice({
             .addCase(adminLogin.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload?.message || 'Login failed';
-            });
+            })
+            .addCase(getAllRegistration.pending, (state) => {
+                    state.loading = true;
+                    state.error = null;
+                  })
+                  .addCase(getAllRegistration.fulfilled, (state, action) => {
+                    state.loading = false;
+                    state.UserData = action.payload.data;
+                  })
+                  .addCase(getAllRegistration.rejected, (state, action) => {
+                    state.loading = false;
+                    state.error = action.payload?.message || 'Failed to fetch blogs';
+                  })
     },
 });
 

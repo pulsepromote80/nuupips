@@ -28,7 +28,7 @@ export default function Header() {
     { name: "Videos", href: "/pages/videos" },
     { name: "Blog", href: "/pages/blog" },
     { name: "Contact", href: "/pages/contact" }, 
-    
+    { name: "Log In", href: "/user-authentication/login" }, 
   ];
 
   return (
@@ -54,7 +54,6 @@ export default function Header() {
               </Link>
             ))}
           </nav>
-
           {/* Mobile Button - FIXED: Icon changes based on open state */}
           <button className="menu-btn" onClick={() => setOpen(!open)}>
             <i className={`fas ${open ? "fa-times" : "fa-bars"}`}></i>

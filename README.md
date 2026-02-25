@@ -1,2 +1,0 @@
-# nuupips
-Nextjs

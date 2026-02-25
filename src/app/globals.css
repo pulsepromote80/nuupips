@@ -1,0 +1,596 @@
+@import "tailwindcss";
+
+/* body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+body {
+  font-family: var(--font-geist-sans);
+} */
+
+
+/* Add to app/globals.css */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+.preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Hide default slick arrows */
+.slick-prev,
+.slick-next {
+  display: none !important;
+}
+
+/* Custom arrows */
+.custom-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #d66c57;
+  border: none;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+}
+
+.slick-prev.custom-arrow {
+  left: -20px;
+}
+
+.slick-next.custom-arrow {
+  right: -20px;
+}
+
+.custom-arrow i {
+  color: #fff;
+}
+
+
+/* amzad */
+/* ===== HEADER ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #000;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-desktop {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-link {
+  color: #cfcfcf;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #00bcd4 !important;
+}.card-text {
+    font-family: '__nextjs-Geist';
+}
+
+/* Mobile button */
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+}
+
+/* ===== MOBILE ===== */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 998;
+}
+
+.menu-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -280px;
+  width: 260px;
+  height: 100vh;
+  background: #fff;
+  padding: 20px;
+  transition: 0.35s ease;
+  z-index: 999;
+}
+
+.mobile-drawer.open {
+  right: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  margin-left: auto;
+  display: block;
+}
+
+.nav-mobile {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nav-mobile .nav-link {
+  color: #222;
+  font-size: 16px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .nav-desktop {
+    display: none;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+}
+
+body {
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+}
+
+
+/* ===== CUSTOM SCROLLBAR WITH #29D2CC ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #29d2cc;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1fb8b0;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #29d2cc #f1f1f1;
+}
+
+
+/* Main Wrapper */
+.login-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(145deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Design Circles */
+.design-circle-one {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  top: -200px;
+  right: -100px;
+}
+
+.design-circle-two {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  bottom: -150px;
+  left: -100px;
+}
+
+.design-circle-three {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Login Box */
+.login-box {
+  background: white;
+  border-radius: 40px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 480px;
+  padding: 45px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Brand Section */
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.brand-logo-box {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(145deg, #4158D0, #C850C0);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(65, 88, 208, 0.3);
+}
+
+.brand-logo-letter {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.brand-name-text {
+  font-size: 26px;
+  font-weight: 700;
+  background: linear-gradient(145deg, #4158D0, #C850C0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Heading Section */
+.heading-section {
+  margin-bottom: 35px;
+}
+
+.main-heading {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.sub-heading {
+  color: #666;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.right-arrow-symbol {
+  width: 18px;
+  height: 18px;
+  color: #C850C0;
+}
+
+/* Login Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Form Field */
+.form-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label-row-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.field-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.label-icon {
+  width: 16px;
+  height: 16px;
+  color: #999;
+}
+
+.forgot-password-link {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #C850C0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+.input-container {
+  position: relative;
+}
+
+.text-input-field {
+  width: 100%;
+  padding: 16px 18px;
+  font-size: 15px;
+  border: 2px solid #eaeaea;
+  border-radius: 16px;
+  background: #fafafa;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.text-input-field:focus {
+  border-color: #C850C0;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(200, 80, 192, 0.1);
+}
+
+.success-check-mark {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #10b981;
+}
+
+.password-visibility-toggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  padding: 5px;
+}
+
+.password-visibility-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.password-visibility-toggle:hover {
+  color: #C850C0;
+}
+
+/* Remember Me */
+.remember-me-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+.checkbox-input {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  accent-color: #C850C0;
+}
+
+.checkbox-label-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.shield-icon {
+  width: 16px;
+  height: 16px;
+  color: #999;
+}
+
+/* Sign In Button */
+.sign-in-button {
+  background: linear-gradient(145deg, #4158D0, #C850C0);
+  color: white;
+  border: none;
+  padding: 18px;
+  border-radius: 18px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  box-shadow: 0 15px 25px rgba(200, 80, 192, 0.3);
+}
+
+.sign-in-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 30px rgba(200, 80, 192, 0.4);
+}
+
+.sign-in-button:active {
+  transform: translateY(0);
+}
+
+.button-arrow {
+  width: 18px;
+  height: 18px;
+}
+
+/* Divider */
+.divider-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 15px 0 5px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: #eaeaea;
+}
+
+.divider-text {
+  color: #999;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Social Buttons */
+.social-buttons-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.social-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: white;
+  border: 2px solid #eaeaea;
+  padding: 14px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.social-login-btn:hover {
+  border-color: #C850C0;
+  background: #fafafa;
+}
+
+.social-icon-svg {
+  width: 18px;
+  height: 18px;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.apple-icon {
+  color: #1a1a1a;
+}
+
+/* Sign Up Text */
+.sign-up-text {
+  text-align: center;
+  margin-top: 25px;
+  color: #666;
+  font-size: 14px;
+}
+
+.create-account-btn {
+  background: none;
+  border: none;
+  color: #C850C0;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 5px;
+}
+
+.create-account-btn:hover {
+  text-decoration: underline;
+}
+
+.small-arrow-icon {
+  width: 14px;
+  height: 14px;
+}

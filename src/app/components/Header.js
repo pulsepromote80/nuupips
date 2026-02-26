@@ -2,13 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { getFullname, getToken, removeToken } from "../lib/authToken";
+import { FaChevronDown } from "react-icons/fa";
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const [token, setToken] = useState();
+  const [accountOpen, setAccountOpen] = useState(false);
+  const accountRef = useRef(null);
   const [fullnameState, setFullnameState] = useState(getFullname());
   useEffect(() => {
     const storedToken = getToken();
@@ -26,17 +29,27 @@ export default function Header() {
     };
 
     const handleStorage = (e) => {
-      if (e.key === 'token' || e.key === 'FullName') {
+      if (e.key === "token" || e.key === "FullName") {
         handleAuthChange();
       }
     };
 
-    window.addEventListener('authChange', handleAuthChange);
-    window.addEventListener('storage', handleStorage);
+    window.addEventListener("authChange", handleAuthChange);
+    window.addEventListener("storage", handleStorage);
     return () => {
-      window.removeEventListener('authChange', handleAuthChange);
-      window.removeEventListener('storage', handleStorage);
+      window.removeEventListener("authChange", handleAuthChange);
+      window.removeEventListener("storage", handleStorage);
     };
+  }, []);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (accountRef.current && !accountRef.current.contains(event.target)) {
+        setAccountOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   // Close sidebar when navigating to a new page
   useEffect(() => {
@@ -55,7 +68,7 @@ export default function Header() {
     { name: "Academy Partnership", href: "/pages/partnership" },
     { name: "Experts", href: "/pages/experts" },
     { name: "Videos", href: "/pages/videos" },
-    { name: "Blog", href: "/blog" },
+    { name: "Blog", href: "/pages/blog" },
     { name: "Contact", href: "/pages/contact" },
   ];
 
@@ -95,13 +108,37 @@ export default function Header() {
                 Login / Register
               </Link>
             ) : (
-              <Link
-                href="/"
-                // style={{backgroundColor: "#fff"}}
-                className="btn btn-sm px-4 py-2 text-sm font-medium rounded-lg bg-gray-50 text-black hover:bg-gray-400 transition duration-300"
-              >
-                {fullname}
-              </Link>
+              <div className="relative" ref={accountRef}>
+                <button
+                  onClick={() => setAccountOpen(!accountOpen)}
+                  className="btn btn-sm px-4 py-2 text-sm font-medium rounded-lg bg-gray-50 text-black hover:bg-gray-400 transition duration-300"
+                >
+                  {fullname} <FaChevronDown />
+                </button>
+
+                {accountOpen && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg py-2 z-50">
+                    <Link
+                      href="/"
+                      onClick={() => setAccountOpen(false)}
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Home
+                    </Link>
+
+                    <Link
+                      href="/"
+                      onClick={() => {
+                        removeToken();
+                        setAccountOpen(false);
+                      }}
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Logout
+                    </Link>
+                  </div>
+                )}
+              </div>
             )}
 
             <Link

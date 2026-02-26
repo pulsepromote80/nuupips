@@ -3,25 +3,20 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { 
-  RiDashboardLine, 
-  RiUser3Line,  
-  RiSettings4Line, 
+import {
+  RiDashboardLine,
   RiLogoutCircleLine,
   RiMenu3Line,
   RiCloseLine,
   RiNotification3Line,
-  RiMoonLine,
-  RiSunLine,
-  RiArrowDownSLine,
   RiContactsBookLine,
   RiArticleLine,
-  RiChat1Line ,
-  RiCommentLine
+  RiChat1Line,
 } from 'react-icons/ri';
-import { 
-  RiFolderLine, RiUserLine 
+import {
+  RiFolderLine, RiUserLine
 } from "react-icons/ri";
+import { RiBookOpenLine } from "react-icons/ri";
 
 import ReduxProvider from '../components/ReduxProvider';
 import { Toaster } from 'react-hot-toast';
@@ -32,9 +27,18 @@ const menuItems = [
   { icon: RiContactsBookLine, label: 'Contact Us', href: '/admin/contact', badge: '3' },
   { icon: RiFolderLine, label: 'Category', href: '/admin/category', badge: null },
   { icon: RiArticleLine, label: 'Blog', href: '/admin/blog', badge: null },
-    { icon: RiChat1Line , label: 'Comment', href: '/admin/comment', badge: null },
-       { icon: RiUserLine  , label: 'Registeration', href: '/admin/registration', badge: null },
-
+  { 
+    icon: RiBookOpenLine, 
+    label: 'Course', 
+    href: '/admin/course', 
+    badge: null,
+    submenu: [
+      { label: 'All Courses', href: '/admin/course' },
+      { label: 'Course Category', href: '/admin/course/category' }
+    ]
+  },
+  { icon: RiChat1Line, label: 'Comment', href: '/admin/comment', badge: null },
+  { icon: RiUserLine, label: 'Registeration', href: '/admin/registration', badge: null },
 ];
 
 // Helper function to get token from storage
@@ -60,7 +64,7 @@ const getUserData = () => {
 export default function AdminLayout({ children }) {
   const pathname = usePathname();
   const router = useRouter();
-  
+
   // Mobile: sidebar hidden by default, Desktop: sidebar visible by default
   const [sidebarOpen, setSidebarOpen] = useState(false); // Mobile state
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // Desktop collapsed state
@@ -69,6 +73,21 @@ export default function AdminLayout({ children }) {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [openSubmenu, setOpenSubmenu] = useState(null); // Track which submenu is open
+
+  // Close submenu when sidebar closes or collapses
+  useEffect(() => {
+    if (!sidebarOpen || sidebarCollapsed) {
+      setOpenSubmenu(null);
+    }
+  }, [sidebarOpen, sidebarCollapsed]);
+
+  // Toggle submenu handler
+  const toggleSubmenu = (e, href) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpenSubmenu(openSubmenu === href ? null : href);
+  };
 
   // Check if viewport is mobile
   useEffect(() => {
@@ -106,7 +125,7 @@ export default function AdminLayout({ children }) {
     const checkAuth = () => {
       const token = getToken();
       const userData = getUserData();
-      
+
       if (token && userData) {
         setIsAuthenticated(true);
         setUser(userData);
@@ -189,7 +208,7 @@ export default function AdminLayout({ children }) {
     }
     return sidebarCollapsed ? 'w-20' : 'w-64'; // Collapsed or expanded on desktop
   };
-  
+
   // Show loading while checking auth
   if (isLoading) {
     return (
@@ -202,7 +221,7 @@ export default function AdminLayout({ children }) {
     );
   }
 
-// If not authenticated and on login page, render just the children without layout
+  // If not authenticated and on login page, render just the children without layout
   if (!isAuthenticated && isLoginPage) {
     return (
       <ReduxProvider>
@@ -221,29 +240,28 @@ export default function AdminLayout({ children }) {
     return null;
   }
 
-return (
+  return (
     <ReduxProvider>
       <Toaster position="top-right" />
       <div className={`min-h-screen ${isDark ? 'dark' : ''}`}>
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative">
           {/* Mobile Overlay */}
           {isMobile && sidebarOpen && (
-            <div 
+            <div
               className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
               onClick={() => setSidebarOpen(false)}
             />
           )}
 
           {/* Sidebar */}
-          <aside 
-            className={`fixed top-0 left-0 z-50 h-screen flex flex-col bg-[#29d2cc] dark:bg-[#2E4A5B] border-r border-[#e6edfd] dark:border-gray-700 transition-all duration-300 ${
-              getSidebarWidth()
-            } ${
+          <aside
+            className={`fixed top-0 left-0 z-50 h-screen flex flex-col bg-[#29d2cc] dark:bg-[#2E4A5B] border-r border-[#e6edfd] dark:border-gray-700 transition-all duration-300 ${getSidebarWidth()
+              } ${
               // Mobile: slide in from left, Desktop: always visible
-              isMobile 
+              isMobile
                 ? `${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`
                 : ''
-            }`}
+              }`}
             style={{ marginTop: 0 }}
           >
             {/* Logo */}
@@ -268,7 +286,7 @@ return (
               )}
               {/* Close button - show on mobile, show on desktop when expanded */}
               {isMobile ? (
-                <button 
+                <button
                   onClick={() => setSidebarOpen(false)}
                   className="p-1.5 lg:p-2 rounded-lg hover:bg-white/20 dark:hover:bg-gray-700 text-white dark:text-gray-300 transition-colors"
                 >
@@ -283,27 +301,77 @@ return (
 
             {/* Navigation */}
             <nav className="flex-1 overflow-y-auto py-4 px-3">
+
               <ul className="space-y-1">
                 {menuItems.map((item) => {
                   const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href));
                   const Icon = item.icon;
+                  const hasSubmenu = item.submenu && item.submenu.length > 0;
+                  const isSubmenuActive = hasSubmenu && item.submenu.some(sub => pathname === sub.href || (sub.href !== '/admin/course' && pathname.startsWith(sub.href)));
+                  
                   return (
                     <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        className={`flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl transition-all group ${
-                          isActive 
-                            ? 'bg-white text-[#D16655] shadow-lg' 
-                            : 'text-white/90 hover:bg-white/20 hover:shadow-md'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <Icon className={`text-xl flex-shrink-0 ${isActive ? 'text-[#D16655]' : 'text-white group-hover:text-white'}`} />
-                          {sidebarOpen && (
-                            <span className="font-medium text-black">{item.label}</span>
+                      {hasSubmenu ? (
+                        <div className="relative">
+                          <Link
+                            href={item.href}
+                            onClick={(e) => toggleSubmenu(e, item.href)}
+                            className={`flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl transition-all group ${isSubmenuActive || openSubmenu === item.href
+                                ? 'bg-white text-[#D16655] shadow-lg'
+                                : 'text-white/90 hover:bg-white/20 hover:shadow-md'
+                              }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <Icon className={`text-xl flex-shrink-0 ${isSubmenuActive || openSubmenu === item.href ? 'text-[#D16655]' : 'text-white group-hover:text-white'}`} />
+                              {(!isMobile || sidebarOpen) && (
+                                <span className="font-medium text-black">{item.label}</span>
+                              )}
+                            </div>
+                            {(!isMobile || sidebarOpen) && (
+                              <svg className={`w-4 h-4 text-black transition-transform ${openSubmenu === item.href ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                              </svg>
+                            )}
+                          </Link>
+                          {/* Submenu - show on desktop always (when not collapsed), on mobile only when sidebar is open */}
+                          {(!isMobile || sidebarOpen) && !sidebarCollapsed && (isSubmenuActive || openSubmenu === item.href) && (
+                            <ul className="mt-1 ml-4 space-y-1">
+                              {item.submenu.map((subItem) => {
+                                const isSubActive = pathname === subItem.href;
+                                return (
+                                  <li key={subItem.href}>
+                                    <Link
+                                      href={subItem.href}
+                                      className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm transition-all ${
+                                        isSubActive
+                                          ? 'bg-white text-[#D16655] shadow-md'
+                                          : 'text-white/80 hover:bg-white/10'
+                                      }`}
+                                    >
+                                      <span className="font-medium text-black">{subItem.label}</span>
+                                    </Link>
+                                  </li>
+                                );
+                              })}
+                            </ul>
                           )}
                         </div>
-                      </Link>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className={`flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl transition-all group ${isActive
+                              ? 'bg-white text-[#D16655] shadow-lg'
+                              : 'text-white/90 hover:bg-white/20 hover:shadow-md'
+                            }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <Icon className={`text-xl flex-shrink-0 ${isActive ? 'text-[#D16655]' : 'text-white group-hover:text-white'}`} />
+                            {sidebarOpen && (
+                              <span className="font-medium text-black">{item.label}</span>
+                            )}
+                          </div>
+                        </Link>
+                      )}
                     </li>
                   );
                 })}
@@ -323,9 +391,9 @@ return (
           </aside>
 
           {/* Main Content */}
-          <div className={`flex-1 flex flex-col min-h-screen transition-all duration-300 ${
-            sidebarOpen ? 'ml-[18%]' : 'ml-32'
-          }`}>
+          <div className={`flex-1 flex flex-col min-h-screen transition-all duration-300 ${sidebarOpen ? 'ml-[18%]' : 'ml-32'
+            }`}>
+
             {/* Header */}
             <header className="h-16 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-[#e6edfd] dark:border-gray-700 flex items-center justify-between px-4 lg:px-6 sticky top-0 z-40 w-full">
               {/* Left side */}

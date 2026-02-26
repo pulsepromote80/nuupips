@@ -9,7 +9,6 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close sidebar when navigating to a new page
   useEffect(() => {
     setOpen(false);
   }, [pathname]);

@@ -93,8 +93,7 @@ body {
   background: #000;
 }
 
-.header-inner {
-  max-width: 1200px;
+.header-inner { 
   margin: auto;
   padding: 14px 20px;
   display: flex;

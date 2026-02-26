@@ -70,10 +70,6 @@ export async function generateMetadata({ params }) {
     canonical: `https://yourdomain.com/blog/${slug}`,
   },
   
-  robots: {
-    index: true,
-    follow: true,
-  },
   
   openGraph: {
     title: blogData?.metaTitle || blogData?.tittle,

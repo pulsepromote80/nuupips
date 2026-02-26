@@ -1,11 +1,16 @@
 import api from "../lib/axios";
-
+import { setFullname, setToken } from "../lib/authToken";
 export const register = async (data) => {
   const response = await api.post("/api/Authentication/userRegistration", data);
   return response?.data;
 };
 export const login = async (data) => {
   const response = await api.post("/api/Authentication/appLogin", data);
+  // ✅ Token save karo
+  if (response?.data?.token) {
+    setToken(response?.data?.token);
+    setFullname(response?.data?.data?.FullName);
+  }
   return response?.data;
 };
 export const forgetPassword = async (data) => {

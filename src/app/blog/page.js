@@ -545,7 +545,7 @@ const BlogSection = () => {
   const handleBlogClick = (blogId, canonical, slug) => {
     // Priority: canonical -> slug -> blogId
     const urlPath = canonical || slug || blogId;
-    router.push(`/pages/blog/${urlPath}`);
+    router.push(`/blog/${urlPath}`);
   };
 
   return (

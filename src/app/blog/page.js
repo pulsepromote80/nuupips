@@ -651,7 +651,6 @@ const BlogSection = () => {
               <ErrorState message={error.message} onRetry={refetch} />
             ) : (
               visiblePosts?.map((post) => {
-                // Determine URL path - priority: canonical -> slug -> blogId
                 const urlPath = post.canonical || post.slug || post.blogId;
                 
                 return (

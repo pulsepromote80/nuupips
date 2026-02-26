@@ -6,8 +6,16 @@ import {
   fetchCountry,
   sendOtp,
 } from "@/app/services/authentication.service";
-import { FaArrowAltCircleRight, FaArrowCircleRight, FaFlag, FaKey, FaPhone, FaUser } from "react-icons/fa";
+import {
+  FaArrowAltCircleRight,
+  FaArrowCircleRight,
+  FaFlag,
+  FaKey,
+  FaPhone,
+  FaUser,
+} from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import CountryDropdown from "@/app/components/CountryDropdown";
 
 export default function ForgetPassword() {
   const router = useRouter();
@@ -241,7 +249,7 @@ export default function ForgetPassword() {
                   Select Country
                 </label>
 
-                <div className="input-container">
+                {/* <div className="input-container">
                   <select
                     name="countryId"
                     value={query.countryId}
@@ -249,7 +257,6 @@ export default function ForgetPassword() {
                     className="text-input-field"
                   >
                     <option value="">Select Country</option>
-                    {/* Loading State */}
                     {countryLoading && <option disabled>Loading...</option>}
                     {!countryLoading &&
                       countryData?.map((data, index) => (
@@ -261,7 +268,14 @@ export default function ForgetPassword() {
                   {errors.countryId && (
                     <p className="text-red-500 text-sm">{errors.countryId}</p>
                   )}
-                </div>
+                </div> */}
+                <CountryDropdown
+                  countryData={countryData}
+                  countryLoading={countryLoading}
+                  query={query}
+                  setQuery={setQuery}
+                  errors={errors}
+                />
               </div>
             </div>
 
@@ -409,7 +423,12 @@ export default function ForgetPassword() {
             {errors.otp && <p className="text-red-500 text-sm">{errors.otp}</p>}
           </div>
 
-           <p className="text-right underline text-blue-500 cursor-pointer" onClick={() => router.push("/user-authentication/forget-password")}>Forget Password</p>
+          <p
+            className="text-right underline text-blue-500 cursor-pointer"
+            onClick={() => router.push("/user-authentication/forget-password")}
+          >
+            Forget Password
+          </p>
           {apiMessage && (
             <div className="bg-green-100 text-green-700 text-center px-4 py-2 rounded-md ">
               {apiMessage}
@@ -420,11 +439,11 @@ export default function ForgetPassword() {
               {apiError}
             </div>
           )}
-         
+
           {/* Sign In Button */}
           <button type="submit" className="sign-in-button">
             <span>{mutation.isPending ? "Registering..." : "Register"}</span>
-            <FaArrowAltCircleRight/>
+            <FaArrowAltCircleRight />
           </button>
 
           {/* Divider Line */}
@@ -437,10 +456,13 @@ export default function ForgetPassword() {
 
         {/* Sign Up Link */}
         <p className="sign-up-text">
-          Already have an account? 
-          <button className="create-account-btn" onClick={() => router.push("/user-authentication/login")}>
+          Already have an account?
+          <button
+            className="create-account-btn"
+            onClick={() => router.push("/user-authentication/login")}
+          >
             Log in
-            <FaArrowCircleRight/>
+            <FaArrowCircleRight />
           </button>
         </p>
       </div>

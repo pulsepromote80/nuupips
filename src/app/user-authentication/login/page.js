@@ -74,6 +74,7 @@ export default function LoginPage() {
 
     if (Object.keys(validationErrors).length === 0) {
       mutation.mutate(query);
+      router.push("/");
     }
   };
   return (

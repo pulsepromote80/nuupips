@@ -6298,7 +6298,7 @@
     border: 1px solid rgb(255 233 128 / 69%);
     backdrop-filter: blur(10px);
     text-transform: uppercase;
-    margin-top: 0px;
+    margin-top: 1.5rem;
   }
 
   /* Warning Label */

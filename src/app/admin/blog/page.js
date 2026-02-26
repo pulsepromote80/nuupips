@@ -426,7 +426,7 @@ export default function BlogAdminPage() {
                             
 
 <Link
-  href={`/pages/blog/${slug}`}
+  href={`/blog/${slug}`}
   className="p-1.5 md:p-2 rounded-lg hover:bg-gray-100"
 >
   <RiEyeLine />
@@ -652,7 +652,7 @@ export default function BlogAdminPage() {
                           </Link> */}
                           
 <Link
-  href={`/pages/blog/${slug}`}
+  href={`/blog/${slug}`}
   className="p-1.5 md:p-2 rounded-lg hover:bg-gray-100"
 >
   <RiEyeLine />

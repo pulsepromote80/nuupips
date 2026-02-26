@@ -658,7 +658,7 @@ const BlogSection = () => {
                   <div
                     key={post.blogId}
                     className="col-lg-4 col-md-6"
-                    onClick={() => router.push(`/pages/blog/${urlPath}`)}
+                    onClick={() => router.push(`/blog/${urlPath}`)}
                     style={{ cursor: "pointer" }}
                   >
                     <div className="article-card">
@@ -694,7 +694,7 @@ const BlogSection = () => {
                           </span>
                         </div>
                         <h3>
-                          <Link href={`/pages/blog/${urlPath}`}>
+                          <Link href={`/blog/${urlPath}`}>
                             {post.tittle}
                           </Link>
                         </h3>
@@ -716,7 +716,7 @@ const BlogSection = () => {
                               <FaEye /> {post?.totalView || 0} views
                             </span>
                           </div>
-                          <Link href={`/pages/blog/${urlPath}`} className="read-link">
+                          <Link href={`/blog/${urlPath}`} className="read-link">
                             Read More <FaChevronRight />
                           </Link>
                         </div>

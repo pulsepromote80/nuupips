@@ -11,16 +11,7 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
 });
 
-// const geistMono = Geist_Mono({
-//   subsets: ["latin"],
-//   variable: "--font-geist-mono",
-// });
 
-// export const metadata = {
-//   title: "nupips | Professional Financial Education",
-//   description:
-//     "Expert-led courses in Forex education, Stock market fundamentals, trading psychology, and risk management.",
-// };
 
 export default function RootLayout({ children }) {
   return (

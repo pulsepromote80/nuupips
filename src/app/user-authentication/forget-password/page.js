@@ -78,7 +78,7 @@ export default function LoginPage() {
         {/* Heading Section */}
         <div className="heading-section">
           <h1 className="main-heading">Welcome Back</h1>
-          <p className="sub-heading">Please enter your details to sign in</p>
+          <p className="sub-heading">Please enter your Email</p>
         </div>
 
         {/* Login Form */}

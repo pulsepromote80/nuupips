@@ -5,13 +5,12 @@ import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import AppLayout from "./components/AppLayout";
 import Providers from "./providers";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   subsets: ["latin"],
   variable: "--font-geist-sans",
 });
-
-
 
 export default function RootLayout({ children }) {
   return (
@@ -42,10 +41,12 @@ export default function RootLayout({ children }) {
 
       <body className={`${geistSans.variable}`}>
         <Providers>
-          <AppLayout>{children}</AppLayout>
+          <AppLayout>
+            {children}
+            <Toaster position="top-right" reverseOrder={false} />
+          </AppLayout>
         </Providers>
       </body>
     </html>
   );
 }
-

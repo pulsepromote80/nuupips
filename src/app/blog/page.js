@@ -621,7 +621,7 @@ const BlogSection = () => {
                       </span>
                     </div>
                     <Link
-                      href={`/pages/blog/${featuredBlog?.canonical || featuredBlog?.slug || featuredBlog?.blogId}`}
+                      href={`/blog/${featuredBlog?.canonical || featuredBlog?.slug || featuredBlog?.blogId}`}
                       className="spotlight-link"
                     >
                       Read Full Analysis <FaArrowRight />

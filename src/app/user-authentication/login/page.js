@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { login } from "@/app/services/authentication.service";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -23,14 +24,20 @@ export default function LoginPage() {
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
+      if (!data?.token) {
+        toast.error(data?.message || "Login failed ❌");
+        return; // 🚨 stop here
+      }
       setQuery({
         username: "",
         password: "",
       });
-      setApiMessage(data?.message || "Query submitted successfully!");
+      toast.success(data?.message || "Login successful 🎉");
+      // setApiMessage(data?.message || "Query submitted successfully!");
       setTimeout(() => {
         setApiMessage("");
       }, 10000);
+      router.push("/");
     },
     onError: (error) => {
       setApiError(error?.response?.data?.message || "Something went wrong!");
@@ -74,7 +81,6 @@ export default function LoginPage() {
 
     if (Object.keys(validationErrors).length === 0) {
       mutation.mutate(query);
-      router.push("/");
     }
   };
   return (
@@ -165,7 +171,12 @@ export default function LoginPage() {
               <p className="text-red-500 text-sm">{errors.password}</p>
             )}
           </div>
-          <p className="text-right underline text-blue-500 cursor-pointer" onClick={() => router.push("/user-authentication/forget-password")}>Forget Password</p>
+          <p
+            className="text-right underline text-blue-500 cursor-pointer"
+            onClick={() => router.push("/user-authentication/forget-password")}
+          >
+            Forget Password
+          </p>
           {apiMessage && (
             <div className="bg-green-100 text-green-700 text-center px-4 py-2 rounded-md">
               {apiMessage}
@@ -192,8 +203,11 @@ export default function LoginPage() {
 
         {/* Sign Up Link */}
         <p className="sign-up-text">
-          Don't have an account? 
-          <button className="create-account-btn" onClick={() => router.push("/user-authentication/register")} >
+          Don't have an account?
+          <button
+            className="create-account-btn"
+            onClick={() => router.push("/user-authentication/register")}
+          >
             Register
             <svg
               className="small-arrow-icon"

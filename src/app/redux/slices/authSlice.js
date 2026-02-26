@@ -4,6 +4,7 @@ import axios from 'axios';
 // API endpoint for admin login
 const API_URL = 'https://agentondemand.ai/api/Blog/adminLogin';
 const GET_ALL_REGISTRATION="https://agentondemand.ai/api/Authentication/GetAllUserRegistration"
+const GET_ADMIN_DASHBOARD_DETAILS = 'https://agentondemand.ai/api/Authentication/getAdminDashboardDetails'
 
 // Create async thunk for admin login
 export const adminLogin = createAsyncThunk(
@@ -36,13 +37,29 @@ export const getAllRegistration = createAsyncThunk(
     }
 );
 
+export const getAdminDashboardDetails = createAsyncThunk(
+    'auth/getAdminDashboardDetails',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(GET_ADMIN_DASHBOARD_DETAILS);
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                return rejectWithValue(error.response.data);
+            }
+            return rejectWithValue({ message: 'Network error occurred' });
+        }
+    }
+);
+
 const initialState = {
     user: null,
     token: null,
     isAuthenticated: false,
     loading: false,
     error: null,
-    UserData: null
+    UserData: null,
+    dashboardData: null
 };
 
 const authSlice = createSlice({
@@ -77,17 +94,29 @@ const authSlice = createSlice({
                 state.error = action.payload?.message || 'Login failed';
             })
             .addCase(getAllRegistration.pending, (state) => {
-                    state.loading = true;
-                    state.error = null;
-                  })
-                  .addCase(getAllRegistration.fulfilled, (state, action) => {
-                    state.loading = false;
-                    state.UserData = action.payload.data;
-                  })
-                  .addCase(getAllRegistration.rejected, (state, action) => {
-                    state.loading = false;
-                    state.error = action.payload?.message || 'Failed to fetch blogs';
-                  })
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getAllRegistration.fulfilled, (state, action) => {
+                state.loading = false;
+                state.UserData = action.payload.data;
+            })
+            .addCase(getAllRegistration.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload?.message || 'Failed to fetch blogs';
+            })
+            .addCase(getAdminDashboardDetails.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getAdminDashboardDetails.fulfilled, (state, action) => {
+                state.loading = false;
+                state.dashboardData = action.payload.data;
+            })
+            .addCase(getAdminDashboardDetails.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload?.message || 'Failed to fetch dashboard details';
+            })
     },
 });
 

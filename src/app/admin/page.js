@@ -34,46 +34,11 @@ import {
   RiShieldCheckLine,
   RiGlobalLine
 } from 'react-icons/ri';
+import { getAdminDashboardDetails, getAllRegistration } from '../redux/slices/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getActiveCourses } from '../redux/slices/courseSlice';
 
-// Mock data
-const mockStats = [
-  {
-    title: 'Total Users',
-    value: '12,456',
-    change: '+12.5%',
-    changeType: 'positive',
-    icon: RiUser3Line,
-    subtext: 'Active users',
-    color: 'blue'
-  },
-  {
-    title: 'Total Comments',
-    value: '156',
-    change: '+8',
-    changeType: 'positive',
-    icon: RiBook2Line,
-    subtext: 'Published courses',
-    color: 'emerald'
-  },
-  {
-    title: 'Total Blog',
-    value: '15',
-    change: '+18.2%',
-    changeType: 'positive',
-    icon: RiMoneyDollarCircleLine,
-    subtext: 'This month',
-    color: 'purple'
-  },
-  {
-    title: 'Total Category',
-    value: '5',
-    change: '-2.4%',
-    changeType: 'negative',
-    icon: RiEyeLine,
-    subtext: 'Last 30 days',
-    color: 'amber'
-  },
-];
+
 
 const mockRecentUsers = [
   { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Student', date: '2 mins ago', avatar: 'JD', status: 'online', courses: 3 },
@@ -186,19 +151,18 @@ function StatCard({ stat, index }) {
     <div className="group relative bg-white rounded-2xl p-6 shadow-lg shadow-gray-100/50 hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300 border border-gray-100">
       {/* Decorative gradient line */}
       <div className={`absolute top-0 left-6 right-6 h-1 bg-gradient-to-r ${colors.gradient} rounded-full opacity-0 group-hover:opacity-100 transition-opacity`}></div>
-      
+
       <div className="flex items-start justify-between mb-4">
         <div className={`p-3.5 rounded-xl ${colors.bg} group-hover:scale-110 transition-transform duration-300`}>
           <Icon className={`text-xl ${colors.text}`} />
         </div>
-        <div className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold ${
-          isPositive ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-500'
-        }`}>
+        <div className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold ${isPositive ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-500'
+          }`}>
           {isPositive ? <RiArrowUpLine className="text-xs" /> : <RiArrowDownLine className="text-xs" />}
           <span>{stat.change}</span>
         </div>
       </div>
-      
+
       <div>
         <p className="text-2xl font-bold text-gray-800 mb-1">{stat.value}</p>
         <p className="text-sm font-medium text-gray-500">{stat.title}</p>
@@ -222,16 +186,16 @@ function QuickActionButton({ action }) {
     >
       {/* Hover effect background */}
       <div className={`absolute inset-0 bg-gradient-to-r ${colors.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
-      
+
       <div className={`relative p-3 rounded-xl bg-white shadow-sm group-hover:shadow-md group-hover:scale-110 transition-all duration-300 ${colors.text}`}>
         <Icon className="text-lg" />
       </div>
-      
+
       <div className="relative flex-1">
         <p className="text-sm font-semibold text-gray-800 group-hover:text-gray-900">{action.label}</p>
         <p className="text-xs text-gray-500 mt-0.5">{action.description}</p>
       </div>
-      
+
       <div className={`relative opacity-0 group-hover:opacity-100 transition-opacity ${colors.text}`}>
         <RiArrowRightLine className="text-lg" />
       </div>
@@ -241,7 +205,7 @@ function QuickActionButton({ action }) {
 
 function ActivityItem({ activity }) {
   const Icon = activity.icon;
-  
+
   return (
     <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group">
       <div className="p-2 rounded-lg bg-gray-100 group-hover:bg-white group-hover:shadow-sm transition-all">
@@ -257,10 +221,97 @@ function ActivityItem({ activity }) {
 }
 
 export default function AdminDashboard() {
+  const dispatch = useDispatch();
   const [currentTime, setCurrentTime] = useState('');
   const [greeting, setGreeting] = useState('');
   const [notifications, setNotifications] = useState(3);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const { dashboardData } = useSelector((state) => state.auth);
+  const { UserData } = useSelector((state) => state.auth);
+  const {data} = useSelector((state) => state.course);
+ 
+  
+
+  const getStats = () => {
+    if (!dashboardData) return null;
+
+    return [
+      {
+        title: 'Total Users',
+        value: dashboardData[0]?.totalActivated || '',
+        change: dashboardData.userChange || '+0%',
+        changeType: parseFloat(dashboardData.userChange?.replace(/[^0-9.-]/g, '')) >= 0 ? 'positive' : 'negative',
+        icon: RiUser3Line,
+        subtext: 'Total users',
+        color: 'blue'
+      },
+
+      {
+        title: 'Active User',
+        value: dashboardData[0]?.totalJoining || '',
+        change: dashboardData.commentsChange || '+0',
+        changeType: parseFloat(dashboardData.commentsChange?.replace(/[^0-9.-]/g, '')) >= 0 ? 'positive' : 'negative',
+        icon: RiGroupLine,
+        subtext: 'Active user',
+        color: 'emerald'
+      },
+      {
+        title: 'Total Toady Join',
+        value: dashboardData[0]?.totalToadyJoining || '0',
+        change: dashboardData.commentsChange || '+0',
+        changeType: parseFloat(dashboardData.commentsChange?.replace(/[^0-9.-]/g, '')) >= 0 ? 'positive' : 'negative',
+        icon: RiUserAddLine,
+        subtext: 'Today joine',
+        color: 'emerald'
+      },
+      {
+        title: 'Total Blog',
+        value: dashboardData[0]?.totalBlog || '',
+        change: dashboardData.blogsChange || '+0%',
+        changeType: parseFloat(dashboardData.blogsChange?.replace(/[^0-9.-]/g, '')) >= 0 ? 'positive' : 'negative',
+        icon: RiArticleLine,
+        subtext: 'This month',
+        color: 'purple'
+      },
+
+      {
+        title: 'Total Publish Blog',
+        value: dashboardData[0]?.totalPublishBlog || '',
+        change: dashboardData.blogsChange || '+0%',
+        changeType: parseFloat(dashboardData.blogsChange?.replace(/[^0-9.-]/g, '')) >= 0 ? 'positive' : 'negative',
+        icon: RiArticleLine,
+        subtext: 'published blog',
+        color: 'purple'
+      },
+
+      {
+        title: 'Total Comment',
+        value: '0',
+        change: dashboardData.blogsChange || '+0%',
+        changeType: parseFloat(dashboardData.blogsChange?.replace(/[^0-9.-]/g, '')) >= 0 ? 'positive' : 'negative',
+        icon: RiMessage2Line,
+        subtext: 'All Comments',
+        color: 'purple'
+      },
+      {
+        title: 'Total Course',
+        value: dashboardData[0]?.totalCourse || '',
+        change: dashboardData.categoryChange || '+0%',
+        changeType: parseFloat(dashboardData.categoryChange?.replace(/[^0-9.-]/g, '')) >= 0 ? 'positive' : 'negative',
+        icon: RiBook2Line,
+        subtext: 'published Course',
+        color: 'amber'
+      },
+    ];
+  };
+  const displayStats = getStats();
+
+  useEffect(() => {
+    dispatch(getAdminDashboardDetails());
+    dispatch(getAllRegistration());
+    dispatch(getActiveCourses())
+  }, [])
 
   useEffect(() => {
     const updateTime = () => {
@@ -270,32 +321,32 @@ export default function AdminDashboard() {
         minute: '2-digit',
         hour12: true
       }));
-      
+
       const hour = now.getHours();
       if (hour < 12) setGreeting('Good Morning');
       else if (hour < 17) setGreeting('Good Afternoon');
       else setGreeting('Good Evening');
     };
-    
+
     updateTime();
     const interval = setInterval(updateTime, 60000);
     return () => clearInterval(interval);
   }, []);
 
-  const today = new Date().toLocaleDateString('en-US', { 
-    weekday: 'long', 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  const today = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   });
 
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto px-4 py-6">
-      
+
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {mockStats.map((stat, index) => (
+        {displayStats?.map((stat, index) => (
           <StatCard key={stat.title} stat={stat} index={index} />
         ))}
       </div>
@@ -318,12 +369,8 @@ export default function AdminDashboard() {
               </div>
               <h2 className="text-base font-semibold text-gray-800">Recent Users</h2>
             </div>
-            <Link href="/admin/users" className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
-              View All
-              <RiArrowRightLine className="text-sm" />
-            </Link>
           </div>
-          
+
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50/50">
@@ -336,31 +383,29 @@ export default function AdminDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
-                {mockRecentUsers.map((user) => (
-                  <tr key={user.id} className="hover:bg-gray-50/50 transition-colors group">
+                {UserData?.map((user, index) => (
+                  <tr key={index} className="hover:bg-gray-50/50 transition-colors group">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="relative">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-sm font-medium text-white shadow-md">
-                            {user.avatar}
-                          </div>
-                          <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${
-                            user.status === 'online' ? 'bg-emerald-500' :
-                            user.status === 'away' ? 'bg-amber-500' : 'bg-gray-400'
-                          }`}></div>
+                          {/* <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-sm font-medium text-white shadow-md">
+                            {user.avatar || ""}
+                          </div> */}
+                          <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${user.status === 'online' ? 'bg-emerald-500' :
+                              user.status === 'Active' ? 'bg-green-600' : 'bg-gray-400'
+                            }`}></div>
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-gray-800 group-hover:text-gray-900">{user.name}</p>
+                          <p className="text-sm font-semibold text-gray-800 group-hover:text-gray-900">{user.fullName}</p>
                           <p className="text-xs text-gray-500">{user.email}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 hidden sm:table-cell">
-                      <span className={`inline-flex px-2.5 py-1.5 rounded-lg text-xs font-medium ${
-                        user.role === 'Premium' ? 'bg-amber-50 text-amber-600 border border-amber-200' :
-                        user.role === 'Expert' ? 'bg-purple-50 text-purple-600 border border-purple-200' :
-                        'bg-gray-50 text-gray-600 border border-gray-200'
-                      }`}>
+                      <span className={`inline-flex px-2.5 py-1.5 rounded-lg text-xs font-medium ${user.role === 'Premium' ? 'bg-amber-50 text-amber-600 border border-amber-200' :
+                          user.role === 'Expert' ? 'bg-purple-50 text-purple-600 border border-purple-200' :
+                            'bg-gray-50 text-gray-600 border border-gray-200'
+                        }`}>
                         {user.role}
                       </span>
                     </td>
@@ -396,7 +441,7 @@ export default function AdminDashboard() {
             </div>
             <span className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded-full font-medium">Live</span>
           </div>
-          
+
           <div className="p-4">
             {activityData.map((activity, index) => (
               <ActivityItem key={index} activity={activity} />
@@ -434,17 +479,11 @@ export default function AdminDashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {mockCourses.map((course) => (
+              {data?.map((course) => (
                 <tr key={course.id} className="hover:bg-gray-50/50 transition-colors group">
                   <td className="px-6 py-4">
-                    <p className="text-sm font-semibold text-gray-800 group-hover:text-gray-900">{course.title}</p>
-                    <p className="text-xs text-gray-500 mt-1">ID: CRS-{course.id.toString().padStart(3, '0')}</p>
-                  </td>
-                  <td className="px-6 py-4 hidden lg:table-cell">
-                    <div className="flex items-center gap-1.5">
-                      <RiGroupLine className="text-gray-400 text-sm" />
-                      <span className="text-sm text-gray-600">{course.students.toLocaleString()}</span>
-                    </div>
+                    <p className="text-sm font-semibold text-gray-800 group-hover:text-gray-900">{course.tittle}</p>
+                    <span className="text-sm text-gray-600">{course.description}</span>
                   </td>
                   <td className="px-6 py-4 hidden xl:table-cell">
                     <span className="text-sm text-gray-600">{course.lessons} lessons</span>
@@ -460,11 +499,10 @@ export default function AdminDashboard() {
                     <span className="text-sm font-semibold text-emerald-600">{course.revenue}</span>
                   </td>
                   <td className="px-6 py-4 hidden md:table-cell">
-                    <span className={`inline-flex px-2.5 py-1.5 rounded-lg text-xs font-medium ${
-                      course.status === 'published' 
-                        ? 'bg-emerald-50 text-emerald-600 border border-emerald-200' 
+                    <span className={`inline-flex px-2.5 py-1.5 rounded-lg text-xs font-medium ${course.status === 'published'
+                        ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
                         : 'bg-gray-50 text-gray-600 border border-gray-200'
-                    }`}>
+                      }`}>
                       {course.status.charAt(0).toUpperCase() + course.status.slice(1)}
                     </span>
                   </td>
@@ -484,7 +522,7 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      
+
     </div>
   );
 }

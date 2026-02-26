@@ -189,7 +189,7 @@ export default function ForgetPassword() {
             {/* Select Country */}
             <div className="form-field-group flex-1">
               <div className="form-field-group">
-                <label className="field-label">
+                <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
                   <FaUser />
                   Full Name
                 </label>
@@ -212,7 +212,7 @@ export default function ForgetPassword() {
             {/* mobile Field */}
             <div className="form-field-group flex-1">
               <div className="form-field-group">
-                <label className="field-label">
+                <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
                   <FaPhone />
                   Phone Number
                 </label>
@@ -244,7 +244,7 @@ export default function ForgetPassword() {
             {/* Select Country */}
             <div className="form-field-group flex-1">
               <div className="form-field-group">
-                <label className="field-label">
+                <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
                   <FaFlag />
                   Select Country
                 </label>
@@ -284,7 +284,7 @@ export default function ForgetPassword() {
               {/* Password Field */}
               <div className="form-field-group">
                 <div className="label-row-container">
-                  <label className="field-label">
+                  <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
                     <svg
                       className="label-icon"
                       viewBox="0 0 24 24"
@@ -360,7 +360,7 @@ export default function ForgetPassword() {
           </div>
           {/* Email Field */}
           <div className="form-field-group">
-            <label className="field-label">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <svg
                 className="label-icon"
                 viewBox="0 0 24 24"

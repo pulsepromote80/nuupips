@@ -56,15 +56,15 @@ const AddBlogPage = () => {
     dispatch(getCategory());
   }, [dispatch]);
 
-  // ✅ Format function - spaces to hyphens
+  
   const formatCanonical = (text) => {
     return text
       .toLowerCase()
       .trim()
-      .replace(/[^\w\s-]/g, '') // Remove special chars
-      .replace(/\s+/g, '-')      // Spaces to hyphens
-      .replace(/-+/g, '-')       // Multiple hyphens to single
-      .replace(/^-|-$/g, '');    // Remove leading/trailing hyphens
+      .replace(/[^\w\s-]/g, '') 
+      .replace(/\s+/g, '-')     
+      .replace(/-+/g, '-')       
+      .replace(/^-|-$/g, '');    
   };
 
   // Formik form handling

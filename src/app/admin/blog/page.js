@@ -27,8 +27,17 @@ import { getBlogs, updateUserBlog } from '@/app/redux/slices/blogSlice';
 import { toast } from 'react-hot-toast';
 import QuillEditor from '@/app/common/rich-text-editor';
 import { getCategory } from '@/app/redux/slices/categorySlice';
+import slugify from "slugify";
 
 // Category color mapping
+
+const createSlug = (text) =>
+  slugify(text || "", {
+    lower: true,
+    strict: true,
+    trim: true,
+  });
+
 const categoryColors = {
   primary: { bg: 'bg-blue-100', text: 'text-blue-700', darkBg: 'dark:bg-blue-900/30', darkText: 'dark:text-blue-400' },
   success: { bg: 'bg-green-100', text: 'text-green-700', darkBg: 'dark:bg-green-900/30', darkText: 'dark:text-green-400' },
@@ -46,19 +55,19 @@ export default function BlogAdminPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [selectedPosts, setSelectedPosts] = useState([]);
-  const [viewMode, setViewMode] = useState('table'); // 'table' or 'grid'
+  const [viewMode, setViewMode] = useState('table'); 
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [deletePopup, setDeletePopup] = useState({ show: false, id: null });
   const [editModal, setEditModal] = useState({ show: false, blog: null });
   const [isEditing, setIsEditing] = useState(false);
 
-  // Fetch blogs on mount
+ 
   useEffect(() => {
     dispatch(getBlogs());
   }, [dispatch]);
 
-  // Check for mobile viewport
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -146,6 +155,7 @@ export default function BlogAdminPage() {
       setIsEditing(false);
     }
   };
+
 
   return (
     <div className="space-y-4 md:space-y-6">
@@ -388,6 +398,10 @@ export default function BlogAdminPage() {
                       author: post.createdBy || '-'
                     };
 
+                    const slug = blogData.canonical
+  ? createSlug(blogData.canonical)
+  : createSlug(blogData.title);
+
                     return (
                       <tr key={blogData.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
                         {/* <td className="px-3 md:px-4 py-3 md:py-4" data-label="Select">
@@ -400,15 +414,23 @@ export default function BlogAdminPage() {
                         </td> */}
                         <td className="px-3 md:px-4 py-3 md:py-4 text-right" data-label="Actions">
                           <div className="flex items-center justify-end gap-2 md:gap-1 ">
-                            <Link
+                            {/* <Link
                               href={`/pages/blog/${blogData.blogId}`}
                               
-                              target="_blank"
+                              // target="_blank"
                               className="p-1.5 md:p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 hover:text-[#D16655] transition-colors"
                               title="View"
                             >
                               <RiEyeLine className="text-sm md:text-base" />
-                            </Link>
+                            </Link> */}
+                            
+
+<Link
+  href={`/pages/blog/${slug}`}
+  className="p-1.5 md:p-2 rounded-lg hover:bg-gray-100"
+>
+  <RiEyeLine />
+</Link>
                             <button
                               onClick={() => handleEditClick(post)}
                               className="p-1.5 md:p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 hover:text-[#D16655] transition-colors"
@@ -573,6 +595,9 @@ export default function BlogAdminPage() {
                   };
 
                   const colors = categoryColors[post.categoryColor] || categoryColors.primary;
+                  const slug = blogData.canonical
+  ? createSlug(blogData.canonical)
+  : createSlug(blogData.title);
                   return (
                     <div key={blogData.id} className="bg-gray-50 dark:bg-gray-700/30 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
                       <div className="relative h-32 md:h-40">
@@ -618,13 +643,21 @@ export default function BlogAdminPage() {
                           </span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <Link
+                          {/* <Link
                             href={`/pages/blog/${blogData.blogId}`}
                             target="_blank"
                             className="flex-1 p-1.5 text-center text-xs bg-gray-200 dark:bg-gray-600 rounded text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors"
                           >
                             View
-                          </Link>
+                          </Link> */}
+                          
+<Link
+  href={`/pages/blog/${slug}`}
+  className="p-1.5 md:p-2 rounded-lg hover:bg-gray-100"
+>
+  <RiEyeLine />
+</Link>
+                          
                           <button
                             onClick={() => handleEditClick(post)}
                             className="flex-1 p-1.5 text-center text-xs bg-[#D16655] text-white rounded hover:bg-[#c05545] transition-colors"

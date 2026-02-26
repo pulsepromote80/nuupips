@@ -102,7 +102,7 @@ export default function LoginPage() {
         <form className="login-form" onSubmit={handleSubmit}>
           {/* Email Field */}
           <div className="form-field-group">
-            <label className="field-label">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <FaEnvelopeSquare />
               Email
             </label>
@@ -124,7 +124,7 @@ export default function LoginPage() {
           {/* Password Field */}
           <div className="form-field-group">
             <div className="label-row-container">
-              <label className="field-label">
+              <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
                 <FaLock />
                 Password
               </label>

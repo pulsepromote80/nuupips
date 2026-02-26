@@ -39,9 +39,15 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
+
 /* Hide default slick arrows */
 .slick-prev,
 .slick-next {
@@ -88,7 +94,7 @@ body {
 }
 
 .header-inner {
-  max-width: 1413px;
+  max-width: 1200px;
   margin: auto;
   padding: 14px 20px;
   display: flex;
@@ -110,8 +116,10 @@ body {
 .nav-link:hover,
 .nav-link.active {
   color: #00bcd4 !important;
-}.card-text {
-    font-family: '__nextjs-Geist';
+}
+
+.card-text {
+  font-family: '__nextjs-Geist';
 }
 
 /* Mobile button */
@@ -127,7 +135,7 @@ body {
 .menu-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   opacity: 0;
   pointer-events: none;
   transition: 0.3s;
@@ -222,7 +230,7 @@ body {
 /* Main Wrapper */
 .login-wrapper {
   min-height: 100vh;
-  background: linear-gradient(145deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+  background: linear-gradient(145deg, #ffffff 0%, #e5dbe4 46%, #fff5e4 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -269,7 +277,7 @@ body {
   border-radius: 40px;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
   width: 100%;
-  max-width: 480px;
+  max-width: 600px;
   padding: 45px;
   position: relative;
   z-index: 10;
@@ -377,7 +385,7 @@ body {
   background: none;
   border: none;
   font-size: 12px;
-  color: #C850C0;
+  color: #2196f3;
   font-weight: 600;
   cursor: pointer;
 }
@@ -392,7 +400,7 @@ body {
 
 .text-input-field {
   width: 100%;
-  padding: 8px 18px;
+  padding: 16px 18px;
   font-size: 15px;
   border: 2px solid #eaeaea;
   border-radius: 16px;
@@ -402,7 +410,7 @@ body {
 }
 
 .text-input-field:focus {
-  border-color: #C850C0;
+  border-color: #2196f3;
   background: white;
   box-shadow: 0 0 0 4px rgba(200, 80, 192, 0.1);
 }
@@ -473,7 +481,7 @@ body {
 
 /* Sign In Button */
 .sign-in-button {
-  background: linear-gradient(145deg, #4158D0, #C850C0);
+  background: linear-gradient(90deg, var(--accent-teal), var(--accent-green));
   color: white;
   border: none;
   padding: 18px;
@@ -548,7 +556,7 @@ body {
 }
 
 .social-login-btn:hover {
-  border-color: #C850C0;
+  border-color: #2563eb;
   background: #fafafa;
 }
 
@@ -577,7 +585,7 @@ body {
 .create-account-btn {
   background: none;
   border: none;
-  color: #C850C0;
+  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
   font-weight: 700;
   cursor: pointer;
   display: inline-flex;

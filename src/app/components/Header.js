@@ -98,7 +98,7 @@ export default function Header() {
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 big-screen-view">
             {!isLoggedIn ? (
               <Link
                 href="/user-authentication/login"
@@ -179,6 +179,58 @@ export default function Header() {
               {item.name}
             </Link>
           ))}
+
+              <div className="flex items-center gap-3 phone-screen-view">
+            {!isLoggedIn ? (
+              <Link
+                href="/user-authentication/login"
+                // style={{backgroundColor: "#fff"}}
+                className="btn btn-sm px-4 py-2 text-sm font-medium rounded-lg bg-gray-50 text-black hover:bg-gray-400 transition duration-300"
+              >
+                Login / Register
+              </Link>
+            ) : (
+              <div className="relative" ref={accountRef}>
+                <button
+                  onClick={() => setAccountOpen(!accountOpen)}
+                  className="btn btn-sm px-4 py-2 text-sm font-medium rounded-lg bg-gray-50 text-black hover:bg-gray-400 transition duration-300"
+                >
+                  {fullname} <FaChevronDown />
+                </button>
+
+                {accountOpen && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg py-2 z-50">
+                    <Link
+                      href="/"
+                      onClick={() => setAccountOpen(false)}
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Home
+                    </Link>
+
+                    <Link
+                      href="/"
+                      onClick={() => {
+                        removeToken();
+                        setAccountOpen(false);
+                      }}
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Logout
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <Link
+              href="/user-authentication/register"
+              // style={{backgroundColor: "#fff"}}
+              className="px-4 py-2 text-sm font-medium rounded-lg  text-black bg-gray-50 hover:text-gray-400  transition duration-300"
+            >
+              Open Trading Account (IB)
+            </Link>
+          </div>
         </nav>
       </aside>
     </>

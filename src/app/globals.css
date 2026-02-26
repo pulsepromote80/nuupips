@@ -93,7 +93,7 @@ body {
   background: #000;
 }
 
-.header-inner { 
+.header-inner {
   margin: auto;
   padding: 14px 20px;
   display: flex;
@@ -600,4 +600,26 @@ body {
 .small-arrow-icon {
   width: 14px;
   height: 14px;
+}
+
+.big-screen-view {
+  display: none;
+}
+
+.phone-screen-view {
+  display: none;
+}
+
+@media(max-width:991px) {
+  .big-screen-view {
+    display: none !important;
+  }
+
+  .phone-screen-view {
+    flex-wrap: wrap;
+  }
+
+  .phone-screen-view {
+   display: block;
+  }
 }

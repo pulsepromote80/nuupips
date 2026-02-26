@@ -26,7 +26,7 @@ export default function Header() {
     { name: "Academy Partnership", href: "/pages/partnership" },
     { name: "Experts", href: "/pages/experts" },
     { name: "Videos", href: "/pages/videos" },
-    { name: "Blog", href: "/pages/blog" },
+    { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/pages/contact" }, 
     { name: "Log In", href: "/user-authentication/login" }, 
   ];

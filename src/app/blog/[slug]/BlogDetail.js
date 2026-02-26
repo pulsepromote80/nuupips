@@ -217,7 +217,7 @@ const BlogDetail = () => {
             <FaChevronRight className="fx-blog-breadcrumb-icon" />
             <Link href="/pages/blog">Blog</Link>
             <FaChevronRight className="fx-blog-breadcrumb-icon" />
-            <span>{blogData?.categoryName}</span>
+            <span>{blogData?.tittle}</span>
           </div>
           
           <div className="fx-blog-category">

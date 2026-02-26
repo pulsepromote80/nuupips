@@ -450,7 +450,7 @@ const BlogDetail = () => {
                   <div className="fx-blog-related-posts">
                     {relatedPosts?.map((related) => (
                       <Link
-                        href={`/pages/blog/${related?.canonical || related?.slug || related?.blogId}`}
+                        href={`/blog/${related?.canonical || related?.slug || related?.blogId}`}
                         key={related?.blogId}
                         className="fx-blog-related-item"
                       >

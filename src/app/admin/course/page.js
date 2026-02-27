@@ -30,8 +30,6 @@ export default function CourseAdminPage() {
   const dispatch = useDispatch();
   const { data: courses, loading } = useSelector((state) => state.course);
   const categoryData = useSelector((state) => state.courseCategory?.data || []);
-  
-
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);

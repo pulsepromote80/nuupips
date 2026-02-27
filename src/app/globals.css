@@ -607,7 +607,7 @@ body {
 }
 
 .phone-screen-view {
-  display: none;
+  display: none !important;
 }
 
 @media(max-width:991px) {
@@ -620,6 +620,10 @@ body {
   }
 
   .phone-screen-view {
-   display: block;
+    display: block !important;
+  }
+
+  .phone-screen-view div button {
+    margin-bottom: 15px;
   }
 }

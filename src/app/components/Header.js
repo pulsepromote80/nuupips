@@ -180,7 +180,7 @@ export default function Header() {
             </Link>
           ))}
 
-              <div className="flex items-center gap-3 phone-screen-view">
+          {/* <div className="flex items-center gap-3 phone-screen-view">
             {!isLoggedIn ? (
               <Link
                 href="/user-authentication/login"
@@ -230,6 +230,41 @@ export default function Header() {
             >
               Open Trading Account (IB)
             </Link>
+          </div> */}
+          <div className="d-flex align-items-center gap-2 flex-wrap">
+
+            {!isLoggedIn ? (
+              <Link
+                href="/user-authentication/login"
+                className="btn btn-dark btn-sm px-3"
+              >
+                Login / Register
+              </Link>
+            ) : (
+              <>
+                {/* Name Button */}
+                <button className="btn btn-dark btn-sm px-3">
+                  {fullname}
+                </button>
+
+                {/* Small Logout */}
+                <button
+                  onClick={removeToken}
+                  className="btn btn-danger btn-sm px-2"
+                >
+                  Logout
+                </button>
+              </>
+            )}
+
+            {/* Open Trading Account */}
+            <Link
+              href="/user-authentication/register"
+              className="btn btn-outline-dark bg-dark text-white btn-sm px-3"
+            >
+              Open Trading Account (IB)
+            </Link>
+
           </div>
         </nav>
       </aside>

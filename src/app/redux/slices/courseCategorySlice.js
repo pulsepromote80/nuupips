@@ -81,11 +81,36 @@ export const deleteCourseCategory = createAsyncThunk(
     }
 );
 
+export const getActiveCourse = createAsyncThunk(
+    'courseCategory/getActiveCourse',
+    async (courseCategoryId, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(
+                `${API_URL}/Course/getActiveCourse`,
+                { courseCategoryId } // Send in request body
+            );
+            console.log("TTTT",response)
+            return response.data; // Return the full response data
+        } catch (error) {
+            if (error.response) {
+                return rejectWithValue({ 
+                    statusCode: error.response.status, 
+                    message: error.response.data?.message || "Failed to get active courses" 
+                });
+            }
+            return rejectWithValue({ 
+                statusCode: 500, 
+                message: error.message || "Network error occurred" 
+            });
+        }
+    }
+);
 const initialState = {
     data: [],
     loading: false,
     error: null,
     success: false,
+    CourseData:null,
     pagination: {
         currentPage: 1,
         itemsPerPage: 10,
@@ -173,6 +198,20 @@ const courseCategorySlice = createSlice({
                 state.loading = false;
                 state.error = action.payload?.message || 'Failed to delete course category';
             })
+
+           .addCase(getActiveCourse.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+})
+.addCase(getActiveCourse.fulfilled, (state, action) => {
+    state.loading = false;
+    state.CourseData = action.payload?.data || []; // Store the data array
+})
+.addCase(getActiveCourse.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload?.message || 'Failed to fetch courses';
+    state.CourseData = []; 
+});
     }
 });
 

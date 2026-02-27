@@ -65,8 +65,8 @@ const mockCourses = [
 ];
 
 const quickActions = [
-  { icon: RiAddLine, label: 'Add Course', href: '/admin/courses/add', color: 'emerald', description: 'Create new course' },
-  { icon: RiArticleLine, label: 'Write Blog', href: '/admin/blog/add', color: 'blue', description: 'Share insights' },
+  { icon: RiAddLine, label: 'Add Course', href: '/admin/course/add', color: 'emerald', description: 'Create new course' },
+  { icon: RiArticleLine, label: 'Add Blog', href: '/admin/blog/add', color: 'blue', description: 'Share insights' },
   { icon: RiUserAddLine, label: 'Add User', href: '/admin/users/add', color: 'purple', description: 'New member' },
   { icon: RiVideoLine, label: 'Upload Video', href: '/admin/videos/add', color: 'amber', description: 'Course content' },
   { icon: RiFileListLine, label: 'Create Quiz', href: '/admin/quizzes/add', color: 'pink', description: 'Assessment' },
@@ -225,13 +225,14 @@ export default function AdminDashboard() {
   const [currentTime, setCurrentTime] = useState('');
   const [greeting, setGreeting] = useState('');
   const [notifications, setNotifications] = useState(3);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [showAllUsers, setShowAllUsers] = useState(false);
+  const [showAllCourses, setShowAllCourses] = useState(false);
 
   const { dashboardData } = useSelector((state) => state.auth);
   const { UserData } = useSelector((state) => state.auth);
-  const {data} = useSelector((state) => state.course);
- 
-  
+  const { data } = useSelector((state) => state.course);
+
+
 
   const getStats = () => {
     if (!dashboardData) return null;
@@ -369,6 +370,15 @@ export default function AdminDashboard() {
               </div>
               <h2 className="text-base font-semibold text-gray-800">Recent Users</h2>
             </div>
+            {UserData && UserData.length > 5 && (
+              <button
+                onClick={() => setShowAllUsers(!showAllUsers)}
+                className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 transition-colors"
+              >
+                {showAllUsers ? 'View Less' : 'View All'}
+                <RiArrowRightLine className={`text-sm transition-transform ${showAllUsers ? 'rotate-90' : ''}`} />
+              </button>
+            )}
           </div>
 
           <div className="overflow-x-auto">
@@ -383,7 +393,7 @@ export default function AdminDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
-                {UserData?.map((user, index) => (
+                {(showAllUsers ? UserData : UserData?.slice(0, 5))?.map((user, index) => (
                   <tr key={index} className="hover:bg-gray-50/50 transition-colors group">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
@@ -392,7 +402,7 @@ export default function AdminDashboard() {
                             {user.avatar || ""}
                           </div> */}
                           <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${user.status === 'online' ? 'bg-emerald-500' :
-                              user.status === 'Active' ? 'bg-green-600' : 'bg-gray-400'
+                            user.status === 'Active' ? 'bg-green-600' : 'bg-gray-400'
                             }`}></div>
                         </div>
                         <div>
@@ -403,8 +413,8 @@ export default function AdminDashboard() {
                     </td>
                     <td className="px-6 py-4 hidden sm:table-cell">
                       <span className={`inline-flex px-2.5 py-1.5 rounded-lg text-xs font-medium ${user.role === 'Premium' ? 'bg-amber-50 text-amber-600 border border-amber-200' :
-                          user.role === 'Expert' ? 'bg-purple-50 text-purple-600 border border-purple-200' :
-                            'bg-gray-50 text-gray-600 border border-gray-200'
+                        user.role === 'Expert' ? 'bg-purple-50 text-purple-600 border border-purple-200' :
+                          'bg-gray-50 text-gray-600 border border-gray-200'
                         }`}>
                         {user.role}
                       </span>
@@ -459,7 +469,7 @@ export default function AdminDashboard() {
             </div>
             <h2 className="text-base font-semibold text-gray-800">Popular Courses</h2>
           </div>
-          <Link href="/admin/courses" className="text-sm text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1">
+          <Link href="/admin/course" className="text-sm text-emerald-600  hover:text-emerald-700 font-medium flex items-center gap-1">
             View All Courses
             <RiArrowRightLine className="text-sm" />
           </Link>
@@ -479,8 +489,8 @@ export default function AdminDashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {data?.map((course) => (
-                <tr key={course.id} className="hover:bg-gray-50/50 transition-colors group">
+              {(showAllCourses ? data : data?.slice(0, 3))?.map((course, index) => (
+                <tr key={index} className="hover:bg-gray-50/50 transition-colors group">
                   <td className="px-6 py-4">
                     <p className="text-sm font-semibold text-gray-800 group-hover:text-gray-900">{course.tittle}</p>
                     <span className="text-sm text-gray-600">{course.description}</span>
@@ -500,8 +510,8 @@ export default function AdminDashboard() {
                   </td>
                   <td className="px-6 py-4 hidden md:table-cell">
                     <span className={`inline-flex px-2.5 py-1.5 rounded-lg text-xs font-medium ${course.status === 'published'
-                        ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
-                        : 'bg-gray-50 text-gray-600 border border-gray-200'
+                      ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
+                      : 'bg-gray-50 text-gray-600 border border-gray-200'
                       }`}>
                       {course.status.charAt(0).toUpperCase() + course.status.slice(1)}
                     </span>
@@ -517,6 +527,20 @@ export default function AdminDashboard() {
                   </td>
                 </tr>
               ))}
+
+              {data && data.length >3 && (
+                <tr>
+                  <td colSpan="7" className="px-6 py-4 text-center">
+                    <button
+                      onClick={() => setShowAllCourses(!showAllCourses)}
+                      className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 transition-colors mx-auto"
+                    >
+                      {showAllCourses ? 'View Less' : 'View All'}
+                      <RiArrowRightLine className={`text-sm transition-transform ${showAllCourses ? 'rotate-90' : ''}`} />
+                    </button>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

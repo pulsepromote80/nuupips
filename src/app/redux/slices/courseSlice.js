@@ -34,7 +34,7 @@ export const getActiveCourses = createAsyncThunk(
     'course/getActiveCourses',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/getActiveCourse`);
+            const response = await axios.post(`${API_URL}/getActiveCourse`);
             return { 
                 statusCode: response.data.statusCode || 200, 
                 data: response.data.data || response.data,
@@ -236,10 +236,7 @@ const courseSlice = createSlice({
             .addCase(updateCourse.fulfilled, (state, action) => {
                 state.loading = false;
                 state.success = true;
-                const index = state.data.findIndex(course => course.courseId === action.payload.data.courseId);
-                if (index !== -1) {
-                    state.data[index] = action.payload.data;
-                }
+                state.data= action.payload;
             })
             .addCase(updateCourse.rejected, (state, action) => {
                 state.loading = false;

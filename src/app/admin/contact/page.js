@@ -182,7 +182,7 @@ export default function AdminContactPage() {
               
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => paginate(currentPage - 1)}
+                  onClick={() => setCurrentPage(currentPage - 1)}
                   disabled={currentPage === 1}
                   className="p-2 rounded-lg border border-gray-200 dark:border-gray-600 disabled:opacity-30 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 >
@@ -196,7 +196,7 @@ export default function AdminContactPage() {
                         return (
                           <button
                             key={page}
-                            onClick={() => paginate(page)}
+                            onClick={() => setCurrentPage(page)}
                             className={`w-8 h-8 rounded-lg text-xs font-medium transition-all ${
                               currentPage === page 
                               ? 'bg-emerald-500  shadow-sm shadow-emerald-200' 
@@ -212,7 +212,7 @@ export default function AdminContactPage() {
                 </div>
 
                 <button
-                  onClick={() => paginate(currentPage + 1)}
+                  onClick={() => setCurrentPage(currentPage + 1)}
                   disabled={currentPage === totalPages}
                   className="p-2 rounded-lg border border-gray-200 dark:border-gray-600 disabled:opacity-30 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 >

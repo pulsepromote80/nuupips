@@ -18,7 +18,7 @@ import {
 } from 'react-icons/ri';
 import { toast } from 'react-hot-toast';
 import { getCourseCategory } from '@/app/redux/slices/courseCategorySlice';
-import { addCourse, getActiveCourses } from '@/app/redux/slices/courseSlice';
+import { addCourse, getCourses} from '@/app/redux/slices/courseSlice';
 
 // Validation schema with Formik
 const validationSchema = Yup.object({
@@ -74,6 +74,7 @@ const AddCoursePage = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      console.log(values)
       // Validate thumbnail
       if (!thumbnail && !thumbnailPreview) {
         toast.error('Please upload a thumbnail image');
@@ -82,11 +83,11 @@ const AddCoursePage = () => {
 
       try {
         // Convert status to number (1 for published, 0 for draft)
-        const statusValue = values.status === 'published' ? 1 : 0;
+        const statusValue = values.status === 'Published' ? 1 : 0;
 
         // Create FormData
         const formData = new FormData();
-        formData.append('Title', values.title);
+        formData.append('Tittle', values.title);
         formData.append('Description', values.description);
         formData.append('CourseCategoryId', values.categoryId);
         formData.append('Rating', values.rating || '0');
@@ -108,7 +109,7 @@ const AddCoursePage = () => {
 
         if (result.statusCode === 200) {
           toast.success(result.message || 'Course added successfully!');
-          dispatch(getActiveCourses());
+          dispatch(getCourses());
           router.push('/admin/course');
         } else {
           toast.error(result.message || 'Failed to add course');

@@ -348,7 +348,7 @@ export default function AdminLayout({ children }) {
                                           : 'text-white/80 hover:bg-white/10'
                                       }`}
                                     >
-                                      <span className="font-medium text-black">{subItem.label}</span>
+                                      <span className="font-medium text-black pl-20">{subItem.label}</span>
                                     </Link>
                                   </li>
                                 );

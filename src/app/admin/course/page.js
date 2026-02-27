@@ -21,26 +21,15 @@ import {
   RiLayoutGridLine,
   RiListCheck
 } from 'react-icons/ri';
-import { getActiveCourses, deleteCourse, updateCourse } from '@/app/redux/slices/courseSlice';
+import {  deleteCourse, updateCourse, getCourses } from '@/app/redux/slices/courseSlice';
 import { getCourseCategory } from '@/app/redux/slices/courseCategorySlice';
 import { toast } from 'react-hot-toast';
 
-// Category color mapping
-const categoryColors = {
-  primary: { bg: 'bg-blue-100', text: 'text-blue-700', darkBg: 'dark:bg-blue-900/30', darkText: 'dark:text-blue-400' },
-  success: { bg: 'bg-green-100', text: 'text-green-700', darkBg: 'dark:bg-green-900/30', darkText: 'dark:text-green-400' },
-  info: { bg: 'bg-cyan-100', text: 'text-cyan-700', darkBg: 'dark:bg-cyan-900/30', darkText: 'dark:text-cyan-400' },
-  warning: { bg: 'bg-amber-100', text: 'text-amber-700', darkBg: 'dark:bg-amber-900/30', darkText: 'dark:text-amber-400' },
-  danger: { bg: 'bg-red-100', text: 'text-red-700', darkBg: 'dark:bg-red-900/30', darkText: 'dark:text-red-400' },
-  purple: { bg: 'bg-purple-100', text: 'text-purple-700', darkBg: 'dark:bg-purple-900/30', darkText: 'dark:text-purple-400' }
-};
 
 export default function CourseAdminPage() {
   const dispatch = useDispatch();
   const { data: courses, loading } = useSelector((state) => state.course);
   const categoryData = useSelector((state) => state.courseCategory?.data || []);
-  
-
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -55,7 +44,7 @@ export default function CourseAdminPage() {
 
   // Fetch courses and categories on mount
   useEffect(() => {
-    dispatch(getActiveCourses());
+    dispatch(getCourses());
     dispatch(getCourseCategory());
   }, [dispatch]);
 
@@ -70,7 +59,7 @@ export default function CourseAdminPage() {
   }, []);
 
   // Filter courses based on search
-  const filteredCourses = courses.filter(course =>
+  const filteredCourses = courses?.filter(course =>
     course?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     course?.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     course?.categoryName?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -97,21 +86,6 @@ export default function CourseAdminPage() {
     setCurrentPage(1);
   };
 
-  const handleSelectAll = (e) => {
-    if (e.target.checked) {
-      setSelectedCourses(currentCourses.map(course => course.courseId));
-    } else {
-      setSelectedCourses([]);
-    }
-  };
-
-  const handleSelectCourse = (id) => {
-    setSelectedCourses(prev =>
-      prev.includes(id)
-        ? prev.filter(courseId => courseId !== id)
-        : [...prev, id]
-    );
-  };
 
   // Reset page when search changes
   useEffect(() => {
@@ -200,7 +174,6 @@ export default function CourseAdminPage() {
               className="w-full pl-9 md:pl-10 pr-4 py-2 md:py-2.5 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg md:rounded-xl text-sm md:text-base text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none focus:border-[#D16655] focus:ring-2 focus:ring-[#D16655]/20 transition-all"
             />
           </div>
-
           <div className="flex items-center gap-2">
             {/* View Toggle - Desktop */}
             <div className="hidden md:flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
@@ -300,12 +273,11 @@ export default function CourseAdminPage() {
                     // Handle different possible field names from API
                     const courseData = {
                       id: index,
-                      courseId: course.courseId || course.id || course.CourseId,
                       title: course.title || course.Title || course.tittle || '-',
                       description: course.description || course.Description || '-',
                       thumbnail: course.thumbnailImage || course.thumbnail || course.ThumbnailImage || course.Thumbnail || '',
                       video: course.courseVideo || course.video || course.CourseVideo || course.Video || '',
-                      categoryId: course.categoryId || course.CategoryId || course.courseCategoryId || '',
+                      CourseCategoryId: course.categoryId || course.CategoryId || course.courseCategoryId || '',
                       categoryName: course.categoryName || course.CategoryName || course.courseCategoryName || getCategoryName(course.categoryId) || '-',
                       rating: course.rating || course.Rating || 0,
                       noOfRating: course.noOfRating || course.NoOfRating || course.noOfRatings || 0,
@@ -425,12 +397,11 @@ export default function CourseAdminPage() {
                   // Handle different possible field names from API
                   const courseData = {
                     id: index,
-                    courseId: course.courseId || course.id || course.CourseId,
                     title: course.title || course.Title || course.tittle || '-',
                     description: course.description || course.Description || '-',
                     thumbnail: course.thumbnailImage || course.thumbnail || course.ThumbnailImage || course.Thumbnail || '/assets/img/blog/blog-img-1-1.jpg',
                     video: course.courseVideo || course.video || course.CourseVideo || course.Video || '',
-                    categoryId: course.categoryId || course.CategoryId || course.courseCategoryId || '',
+                    CourseCategoryId: course.categoryId || course.CategoryId || course.courseCategoryId || '',
                     categoryName: course.categoryName || course.CategoryName || course.courseCategoryName || getCategoryName(course.categoryId) || '-',
                     rating: course.rating || course.Rating || 0,
                     noOfRating: course.noOfRating || course.NoOfRating || course.noOfRatings || 0,
@@ -612,6 +583,8 @@ export default function CourseAdminPage() {
 
 function EditCourseModal({ course, onClose, onUpdate, isEditing, categoryData }) {
 
+  console.log(course);
+
   // Handle different possible field names from API
   const getCourseField = (field, fallback = '') => {
     if (field === 'title') return course.title || course.Title || course.tittle || '';
@@ -646,6 +619,7 @@ function EditCourseModal({ course, onClose, onUpdate, isEditing, categoryData })
     const thumb = getCourseField('thumbnail');
     return thumb && thumb.startsWith('http') ? thumb : null;
   });
+
   const [videoPreview, setVideoPreview] = useState(() => {
     const vid = getCourseField('video');
     return vid && vid.startsWith('http') ? vid : null;
@@ -725,22 +699,21 @@ function EditCourseModal({ course, onClose, onUpdate, isEditing, categoryData })
     // Get current thumbnail and video from course using helper function
     const currentThumbnail = getCourseField('thumbnail');
     const currentVideo = getCourseField('video');
-
-    // Append all fields
     formDataToSend.append('CourseId', formData.courseId);
-    formDataToSend.append('CategoryId', formData.categoryId);
-    formDataToSend.append('Title', formData.title);
+    formDataToSend.append('CourseCategoryId', formData.categoryId);
+    formDataToSend.append('Tittle', formData.title);
     formDataToSend.append('Description', formData.description);
     formDataToSend.append('Rating', formData.rating);
     formDataToSend.append('NoOfRating', formData.noOfRating);
+    formDataToSend.append('UpdatedBy', course.createdBy);
     formDataToSend.append('Status', formData.status);
 
     // Thumbnail handling
     if (formData.isThumbnailChanged) {
       if (formData.thumbnailFile) {
-        formDataToSend.append('Thumbnail', formData.thumbnailFile);
+        formDataToSend.append('ThumbnailImage', formData.thumbnailFile);
       } else {
-        formDataToSend.append('Thumbnail', '');
+        formDataToSend.append('ThumbnailImage', '');
       }
     } else {
       if (currentThumbnail) {
@@ -753,11 +726,11 @@ function EditCourseModal({ course, onClose, onUpdate, isEditing, categoryData })
       if (formData.videoFile) {
         formDataToSend.append('Video', formData.videoFile);
       } else {
-        formDataToSend.append('Video', '');
+        formDataToSend.append('CourseVideo', '');
       }
     } else {
       if (currentVideo) {
-        formDataToSend.append('Video', currentVideo);
+        formDataToSend.append('CourseVideo', currentVideo);
       }
     }
 

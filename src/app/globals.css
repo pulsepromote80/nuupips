@@ -627,3 +627,9 @@ body {
     margin-bottom: 15px;
   }
 }
+
+.promo-card {
+  background: linear-gradient(135deg, #2f5aa8, #1f86b6);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  min-height: 320px;
+}

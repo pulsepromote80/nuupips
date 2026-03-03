@@ -1,8 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const NewsAnalysis = () => {
+  const router = useRouter();
   const articles = [
     {
       id: 1,
@@ -131,6 +133,7 @@ const NewsAnalysis = () => {
           {articles.slice(1).map((article, index) => (
             <div
               key={index}
+               onClick={()=> router.push("/pages/news/detail")}
               className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col"
             >
               <div className="h-48 overflow-hidden">
@@ -222,7 +225,7 @@ const NewsAnalysis = () => {
                   <>
                     <div
                       key={index}
-                      className=" border-b border-gray-50 last:border-0"
+                      className="cursor-pointer border-b border-gray-50 last:border-0"
                     >
                       <h4 className="text-[#0055b8] font-medium hover:underline cursor-pointer mb-1">
                         {article.title}
@@ -234,7 +237,7 @@ const NewsAnalysis = () => {
                 ))}
               </div>
 
-              <div className="pt-4 text-[#0055b8] text-sm font-bold text-center cursor-pointer">
+              <div  onClick={()=> router.push("/pages/news/detail")} className="pt-4 text-[#0055b8] text-sm font-bold text-center cursor-pointer">
                 View more forex news <span className="ml-1 text-[10px]">▶</span>
               </div>
             </div>

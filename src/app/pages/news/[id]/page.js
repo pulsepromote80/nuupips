@@ -6,10 +6,10 @@ export async function generateMetadata({ params }) {
   const blog = await getNewsById(id);
 
   return {
-    title: blog?.title,
+    title: blog?.tittle,
     description: blog?.description,
     openGraph: {
-      title: blog?.title,
+      title: blog?.tittle,
       description: blog?.description,
       images: [blog?.image],
     },

@@ -1,10 +1,25 @@
 "use client";
 
+import ErrorState from "@/app/components/ErrorState";
+import Loading from "@/app/components/Loading";
+import { fetchNews } from "@/app/services/news.service";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 const NewsAnalysis = () => {
   const router = useRouter();
+  const {
+    data: news,
+    isLoading: loadingNews,
+    error: newsError,
+    refetch: newsRefetch,
+  } = useQuery({
+    queryKey: ["news"],
+    queryFn: fetchNews,
+  });
+  const topTwoNews = news?.slice(0, 2);
+  const afterTwoData = news?.slice(2);
   const articles = [
     {
       id: 1,
@@ -101,12 +116,11 @@ const NewsAnalysis = () => {
   return (
     <section className="bg-slate-50 min-h-screen p-8 font-sans">
       <div className="max-w-7xl mx-auto mb-4">
-        <h2 className="text-3xl font-semibold text-[#0a1f44] mb-8">
-          News & analysis
+        <h2 className="text-3xl font-bold text-[#0a1f44] mb-8 border-l-4 border-blue-600 pl-5">
+          News & Analysis
         </h2>
-
         {/* Featured Article */}
-        <div className="relative w-full h-80 rounded-xl overflow-hidden mb-6 shadow-lg group cursor-pointer">
+        <div className="relative w-full md:h-80 lg:h-80 rounded-xl overflow-hidden mb-6 shadow-lg group cursor-pointer">
           <img
             src={articles[0].image}
             alt="Silver bars"
@@ -130,37 +144,44 @@ const NewsAnalysis = () => {
 
         {/* Secondary Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {articles.slice(1).map((article, index) => (
+          {topTwoNews?.map((article, index) => (
             <div
               key={index}
-               onClick={()=> router.push("/pages/news/detail")}
+              onClick={() => router.push(`/pages/news/${article?.newsId}`)}
               className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col"
             >
               <div className="h-48 overflow-hidden">
                 <img
-                  src={article.image}
-                  alt={article.title}
+                  src={article?.image}
+                  alt={article?.title}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <h4 className="text-lg font-bold text-[#0a1f44] mb-4 leading-tight">
-                  {article.title}
+                <h4 className="text-lg font-bold text-[#0a1f44] mb-4 leading-tight line-clamp-2">
+                  {article?.tittle}
                 </h4>
 
                 <div className="mt-auto">
-                  <p className="text-[11px] text-gray-500 mb-1">
+                  <p className="text-[11px] text-gray-600 mb-1">
                     By:{" "}
                     <span className="text-blue-600 font-medium cursor-pointer">
-                      {article.author}
+                      {article?.name}
                     </span>
                   </p>
-                  <p className="text-[11px] text-gray-400 mb-4">
-                    {article.date}
+                  <p className="text-[11px] text-gray-600 mb-4">
+                    Date: <span>{article?.createdDate}</span>
                   </p>
 
                   <div className="flex flex-wrap gap-2">
-                    {article.tags.map((tag) => (
+                    {[
+                      "CRUDE OIL",
+                      "WTI",
+                      "GOLD",
+                      "GEOPOLITICS",
+                      "XAU USD",
+                      "TECHNICAL ANALYSIS",
+                    ].map((tag) => (
                       <span
                         key={tag}
                         className="text-[9px] font-bold text-gray-500 border border-gray-300 px-2 py-0.5 rounded uppercase hover:bg-gray-50 cursor-pointer"
@@ -180,128 +201,81 @@ const NewsAnalysis = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left: Secondary News Section */}
           <div className="lg:col-span-2 ">
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-4">
-              <h3 className="text-xl font-bold text-[#0a1f44] mb-6 pb-2 border-b border-gray-100">
-                Latest Analysis
-              </h3>
+            {loadingNews ? (
+              <Loading />
+            ) : newsError ? (
+              <ErrorState message={error?.message} onRetry={newsRefetch} />
+            ) : (
+              afterTwoData?.map((news, index) => (
+                <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-4">
+                  <h3 className="text-xl font-bold text-[#0a1f44] mb-6 pb-2 border-b border-gray-100">
+                    Latest Analysis
+                  </h3>
 
-              {/* Detailed Article with Image */}
-              <div className="flex flex-col md:flex-row gap-6 mb-8 pb-8 border-b border-gray-100">
-                <div className="flex-1">
-                  <h4 className="text-xl font-semibold text-[#0055b8] hover:underline cursor-pointer mb-2 leading-tight">
-                    {secondaryArticles[0].title}
-                  </h4>
-                  <p className="text-sm text-gray-500 mb-4">
-                    By:{" "}
-                    <span className="text-blue-600 font-medium">
-                      {secondaryArticles[0].author}
-                    </span>
-                    <br />
-                    {secondaryArticles[0].date}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {secondaryArticles[0].tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[10px] font-bold text-gray-600 border border-blue-900 px-2 py-1 rounded-sm uppercase"
-                      >
-                        {tag}
-                      </span>
+                  {/* Detailed Article with Image */}
+                  <div className="flex flex-col md:flex-row gap-6 mb-8 pb-8 border-b border-gray-100">
+                    <div className="flex-1">
+                      <h4 className="text-xl font-semibold text-[#0055b8] hover:underline cursor-pointer mb-2 leading-tight line-clamp-2">
+                        {news?.tittle}
+                      </h4>
+                      <p className="text-sm text-gray-500 mb-4">
+                        By:{" "}
+                        <span className="text-blue-600 font-medium">
+                          {news?.name}
+                        </span>
+                        <br />
+                        Date: <span>{news?.createdDate}</span>
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {secondaryArticles[0].tags.map((tag,index) => (
+                          <span 
+                            key={index}
+                            className="text-[10px] font-bold text-gray-600 border border-blue-900 px-2 py-1 rounded-sm uppercase"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="md:w-1/3">
+                      <img
+                        src={news?.image}
+                        alt="Chart"
+                        className="rounded-lg object-cover h-32 w-full"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Simple List Articles */}
+                  <div className="space-y-6">
+                    {secondaryArticles.slice(1).map((article, index) => (
+                      <>
+                        <div
+                          key={index}
+                          className="cursor-pointer border-b border-gray-50 last:border-0"
+                        >
+                          <h4 className="text-[#0055b8] font-medium hover:underline cursor-pointer mb-1">
+                            {article.title}
+                          </h4>
+                          <p className="text-xs text-gray-400">
+                            {article.date}
+                          </p>
+                        </div>
+                        <hr />
+                      </>
                     ))}
                   </div>
-                </div>
-                <div className="md:w-1/3">
-                  <img
-                    src={secondaryArticles[0].image}
-                    alt="Chart"
-                    className="rounded-lg object-cover h-32 w-full"
-                  />
-                </div>
-              </div>
 
-              {/* Simple List Articles */}
-              <div className="space-y-6">
-                {secondaryArticles.slice(1).map((article, index) => (
-                  <>
-                    <div
-                      key={index}
-                      className="cursor-pointer border-b border-gray-50 last:border-0"
-                    >
-                      <h4 className="text-[#0055b8] font-medium hover:underline cursor-pointer mb-1">
-                        {article.title}
-                      </h4>
-                      <p className="text-xs text-gray-400">{article.date}</p>
-                    </div>
-                    <hr />
-                  </>
-                ))}
-              </div>
-
-              <div  onClick={()=> router.push("/pages/news/detail")} className="pt-4 text-[#0055b8] text-sm font-bold text-center cursor-pointer">
-                View more forex news <span className="ml-1 text-[10px]">▶</span>
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-4">
-              <h3 className="text-xl font-bold text-[#0a1f44] mb-6 pb-2 border-b border-gray-100">
-                Forex news and analysis
-              </h3>
-
-              {/* Detailed Article with Image */}
-              <div className="flex flex-col md:flex-row gap-6 mb-8 pb-8 border-b border-gray-100">
-                <div className="flex-1">
-                  <h4 className="text-xl font-semibold text-[#0055b8] hover:underline cursor-pointer mb-2 leading-tight">
-                    {secondaryArticles[0].title}
-                  </h4>
-                  <p className="text-sm text-gray-500 mb-4">
-                    By:{" "}
-                    <span className="text-blue-600 font-medium">
-                      {secondaryArticles[0].author}
-                    </span>
-                    <br />
-                    {secondaryArticles[0].date}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {secondaryArticles[0].tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[10px] font-bold text-gray-600 border border-blue-900 px-2 py-1 rounded-sm uppercase"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  <div
+                    onClick={() => router.push(`/pages/news/${news?.newsId}`)}
+                    className="pt-4 text-[#0055b8] text-sm font-bold text-center cursor-pointer"
+                  >
+                    View more forex news{" "}
+                    <span className="ml-1 text-[10px]">▶</span>
                   </div>
                 </div>
-                <div className="md:w-1/3">
-                  <img
-                    src={secondaryArticles[0].image}
-                    alt="Chart"
-                    className="rounded-lg object-cover h-32 w-full"
-                  />
-                </div>
-              </div>
-
-              {/* Simple List Articles */}
-              <div className="space-y-6">
-                {secondaryArticles.slice(1).map((article) => (
-                  <>
-                    <div
-                      key={article.id}
-                      className=" border-b border-gray-50 last:border-0"
-                    >
-                      <h4 className="text-[#0055b8] font-medium hover:underline cursor-pointer mb-1">
-                        {article.title}
-                      </h4>
-                      <p className="text-xs text-gray-400">{article.date}</p>
-                    </div>
-                    <hr />
-                  </>
-                ))}
-              </div>
-
-              <div className="pt-4 text-[#0055b8] text-sm font-bold text-center cursor-pointer">
-                View more forex news <span className="ml-1 text-[10px]">▶</span>
-              </div>
-            </div>
+              ))
+            )}
           </div>
 
           {/* Right: Research Team & Calendar */}
@@ -325,7 +299,7 @@ const NewsAnalysis = () => {
                 opportunities.
               </p>
 
-              <button className="w-full py-2 px-4 border-2 border-[#0a1f44] text-[#0a1f44] font-bold rounded-full hover:bg-[#0a1f44] hover:text-white transition-colors">
+              <button onClick={()=>router.push("/pages/experts")} className="w-full py-2 px-4 border-2 border-[#0a1f44] text-[#0a1f44] font-bold rounded-full hover:bg-[#0a1f44] hover:text-white transition-colors">
                 MEET OUR RESEARCH TEAM
               </button>
             </div>
@@ -419,7 +393,7 @@ const NewsAnalysis = () => {
                   Trade forex and thousands of other markets.
                 </p>
 
-                <button
+                <button onClick={()=>router.push("/user-authentication/register")}
                   className="bg-warning hover:bg-warning
                  text-white text-sm font-semibold 
                  px-4 py-2 rounded-full 

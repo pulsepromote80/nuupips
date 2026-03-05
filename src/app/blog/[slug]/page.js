@@ -30,30 +30,6 @@ export async function generateMetadata({ params }) {
     
     const blogData = await fetchBlogById(blog.blogId);
     
-    // return {
-    //   title: blogData?.metaTitle || blogData?.tittle + " | nupips",
-    //   description: blogData?.metaDescription || blogData?.description?.substring(0, 160),
-    //   keywords: blogData?.metaKeyWord || "",
-    //   alternates: {
-    //     canonical: `https://yourdomain.com/blog/${slug}`,
-    //   },
-    //   robots: {
-    //     index: true,
-    //     follow: true,
-    //   },
-    //   openGraph: {
-    //     title: blogData?.metaTitle || blogData?.tittle,
-    //     description: blogData?.metaDescription || blogData?.description?.substring(0, 160),
-    //     images: [blogData?.image || "/assets/img/default-blog.jpg"],
-    //     type: "article",
-    //   },
-    //   twitter: {
-    //     card: "summary_large_image",
-    //     title: blogData?.metaTitle || blogData?.tittle,
-    //     description: blogData?.metaDescription || blogData?.description?.substring(0, 160),
-    //     images: [blogData?.image || "/assets/img/default-blog.jpg"],
-    //   },
-    // };
   return {
   title: blogData?.metaTitle || blogData?.tittle + " | nupips",
   description: blogData?.metaDescription || blogData?.description?.substring(0, 160),

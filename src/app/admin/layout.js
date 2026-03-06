@@ -16,7 +16,7 @@ import {
 import {
   RiFolderLine, RiUserLine
 } from "react-icons/ri";
-import { RiBookOpenLine } from "react-icons/ri";
+import { RiBookOpenLine, RiNewspaperLine } from "react-icons/ri";
 
 import ReduxProvider from '../components/ReduxProvider';
 import { Toaster } from 'react-hot-toast';
@@ -27,6 +27,7 @@ const menuItems = [
   { icon: RiContactsBookLine, label: 'Contact Us', href: '/admin/contact', badge: '3' },
   { icon: RiFolderLine, label: 'Category', href: '/admin/category', badge: null },
   { icon: RiArticleLine, label: 'Blog', href: '/admin/blog', badge: null },
+  { icon: RiNewspaperLine, label: 'News', href: '/admin/news', badge: null },
   { 
     icon: RiBookOpenLine, 
     label: 'Course', 

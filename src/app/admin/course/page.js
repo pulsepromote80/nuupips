@@ -39,7 +39,6 @@ export default function CourseAdminPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [deletePopup, setDeletePopup] = useState({ show: false, id: null });
   const [editModal, setEditModal] = useState({ show: false, course: null });
-  console.log(editModal)
   const [isEditing, setIsEditing] = useState(false);
 
   // Fetch courses and categories on mount

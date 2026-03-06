@@ -16,7 +16,7 @@ export default function Footer() {
     { name: "Expert Faculty", href: "/pages/experts" },
     { name: "Academy Partnership", href: "/pages/partnership" },
     { name: "Partners", href: "/pages/contact" },
-    { name: "News", href: "/pages/news" },
+    { name: "News", href: "/news" },
   ];
 
   const supportLinks = [

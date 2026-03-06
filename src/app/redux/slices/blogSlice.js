@@ -291,11 +291,99 @@ export const getContactUs = createAsyncThunk(
   }
 );
 
+// add news
+export const addNews = createAsyncThunk(
+    'blog/addNews',
+    async (formData, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${API_URL}/addNews`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            return { 
+                statusCode: response.data.statusCode || 200, 
+                message: response.data.message || "News added successfully",
+                data: response.data.data
+            };
+        } catch (error) {
+            if (error.response) {
+                return rejectWithValue({ 
+                    statusCode: error.response.status, 
+                    message: error.response.data?.message || "Failed to add course" 
+                });
+            }
+            return rejectWithValue({ 
+                statusCode: 500, 
+                message: error.message || "Network error occurred" 
+            });
+        }
+    }
+);
+export const getNewsById = createAsyncThunk(
+  "blog/getNewsById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${API_URL}/getUserNewsByNewsId?NewsId=${id}`);
+
+      return {
+        statusCode: response.data.statusCode || 200,
+        message: response.data.message || "News fetched successfully",
+        data: response.data.data,
+      };
+    } catch (error) {
+      if (error.response) {
+        return rejectWithValue({
+          statusCode: error.response.status,
+          message: error.response.data?.message || "Failed to fetch news",
+        });
+      }
+
+      return rejectWithValue({
+        statusCode: 500,
+        message: error.message || "Network error occurred",
+      });
+    }
+  }
+);
+export const updateNews = createAsyncThunk(
+    'blog/updateNews',
+    async (formData, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${API_URL}/updateNews`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            return { 
+                statusCode: response.data.statusCode || 200, 
+                message: response.data.message || "News updated successfully",
+                data: response.data.data
+            };
+        } catch (error) {
+            if (error.response) {
+                return rejectWithValue({ 
+                    statusCode: error.response.status, 
+                    message: error.response.data?.message || "Failed to add course" 
+                });
+            }
+            return rejectWithValue({ 
+                statusCode: 500, 
+                message: error.message || "Network error occurred" 
+            });
+        }
+    }
+);
 const initialState = {
   data: [],
   loading: false,
   error: null,
-  success: false
+  success: false,
+  newsdata: null,
+  editNewsData: null,
+  newsEditerror: null,
+  newsEditLoading: false,
+  updateNewsData: null
 };
 
 const blogSlice = createSlice({
@@ -420,7 +508,46 @@ const blogSlice = createSlice({
       .addCase(getContactUs.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || 'Failed to fetch contact us data';
-      });
+      })
+      // add news
+      .addCase(addNews.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addNews.fulfilled, (state, action) => {
+        state.loading = false;
+        state.newsdata = action.payload.data;
+      })
+      .addCase(addNews.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || 'Failed to fetch contact us data';
+      })
+       // edit news
+      .addCase(getNewsById.pending, (state) => {
+        state.newsEditLoading = true;
+        state.newsEditerror = null;
+      })
+      .addCase(getNewsById.fulfilled, (state, action) => {
+        state.newsEditLoading = false;
+        state.editNewsData = action.payload.data;
+      })
+      .addCase(getNewsById.rejected, (state, action) => {
+        state.newsEditLoading = false;
+        state.newsEditerror = action.payload?.message || 'Failed to fetch contact us data';
+      })
+       // updateNews news
+      .addCase(updateNews.pending, (state) => {
+        state.newsEditLoading = true;
+        state.newsEditerror = null;
+      })
+      .addCase(updateNews.fulfilled, (state, action) => {
+        state.newsEditLoading = false;
+        state.updateNewsData = action.payload.data;
+      })
+      .addCase(updateNews.rejected, (state, action) => {
+        state.newsEditLoading = false;
+        state.newsEditerror = action.payload?.message || 'Failed to fetch contact us data';
+      })
   }
 });
 

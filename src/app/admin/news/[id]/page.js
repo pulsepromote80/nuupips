@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useState, useEffect, useMemo } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Image from "next/image";
@@ -14,14 +14,13 @@ import {
   RiAddLine,
 } from "react-icons/ri";
 import { toast } from "react-hot-toast";
-import { addNews } from "@/app/redux/slices/blogSlice";
+import { getNewsById, updateNews } from "@/app/redux/slices/blogSlice";
 import QuillEditor from "@/app/common/rich-text-editor";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   description: Yup.string().required("Description is required"),
 });
-
 const getUserData = () => {
   if (typeof window === "undefined") return null;
   const userData = localStorage.getItem("currentUser");
@@ -34,9 +33,15 @@ const getUserData = () => {
   }
   return null;
 };
-const AddNews = () => {
+const EditNews = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { editNewsData, newsEditLoading, newsEditerror } = useSelector(
+    (state) => state?.blog || [],
+  );
+  const params = useParams();
+
+  const newsId = params.id;
 
   const [thumbnail, setThumbnail] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -46,39 +51,61 @@ const AddNews = () => {
     initialValues: {
       title: "",
       description: "",
-      status: "0",
+      status: "1",
     },
     validationSchema,
-    onSubmit: async (values) => {
-      if (!thumbnail) {
-        toast.error("Please upload image");
-        return;
-      }
+    enableReinitialize: true,
 
+    onSubmit: async (values) => {
       try {
         const formData = new FormData();
 
+        formData.append("NewsId", newsId);
         formData.append("Tittle", values.title);
         formData.append("Description", values.description);
         formData.append("CreatedBy", userId); // hardcoded
         formData.append("Status", Number(values.status));
-        formData.append("image", thumbnail);
 
-        console.log("Sending Data =>", values);
+        if (thumbnail) {
+          formData.append("image", thumbnail);
+        }
 
-        const result = await dispatch(addNews(formData)).unwrap();
+        const result = await dispatch(updateNews(formData)).unwrap();
 
-        toast.success(result.message || "News Added Successfully");
+        toast.success(result.message || "News Updated Successfully");
 
         router.push("/admin/news");
       } catch (error) {
-        toast.error(error?.message || "Something went wrong");
+        toast.error(error?.message || "Update failed");
       }
     },
   });
 
+  // Fetch news by id
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await dispatch(getNewsById(newsId)).unwrap();
+
+        const data = res?.data?.[0];
+        formik.setValues({
+          title: data?.tittle || "",
+          description: data?.description || "",
+          status: String(data?.statusCode ?? 1),
+        });
+
+        setPreview(data?.image);
+      } catch {
+        toast.error("Failed to load news");
+      }
+    };
+
+    if (newsId) fetchNews();
+  }, [newsId]);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+
     if (file) {
       setThumbnail(file);
       setPreview(URL.createObjectURL(file));
@@ -99,8 +126,8 @@ const AddNews = () => {
         </Link>
 
         <div>
-          <h1 className="text-xl font-bold text-[#2E4A5B]">Add News</h1>
-          <p className="text-sm text-gray-500">Create a new news</p>
+          <h1 className="text-xl font-bold text-[#2E4A5B]">Edit News</h1>
+          <p className="text-sm text-gray-500">Update existing news</p>
         </div>
       </div>
 
@@ -109,7 +136,7 @@ const AddNews = () => {
         onSubmit={formik.handleSubmit}
         className="grid grid-cols-1 lg:grid-cols-3 gap-6"
       >
-        {/* Left Side */}
+        {/* Left */}
         <div className="lg:col-span-2 bg-white rounded-xl p-6 border">
           {/* Title */}
           <div className="mb-4">
@@ -118,7 +145,6 @@ const AddNews = () => {
             <input
               type="text"
               name="title"
-              placeholder="Enter news title"
               value={formik.values.title}
               onChange={formik.handleChange}
               className="w-full mt-2 px-4 py-2 border rounded-lg"
@@ -132,15 +158,18 @@ const AddNews = () => {
           {/* Description */}
           <div>
             <label className="text-sm font-medium">Description *</label>
+
             <QuillEditor
+              name="description"
               value={formik.values.description}
+              // onChange={formik.handleChange}
               onChange={(content) => {
                 formik.setFieldValue("description", content);
               }}
-              placeholder="Write your news content here..."
-              height={200}
+              required
+              height={250}
             />
-      
+
             {formik.errors.description && (
               <p className="text-red-500 text-xs mt-1">
                 {formik.errors.description}
@@ -149,11 +178,11 @@ const AddNews = () => {
           </div>
         </div>
 
-        {/* Right Side */}
+        {/* Right */}
         <div className="space-y-6">
-          {/* Image Upload */}
+          {/* Image */}
           <div className="bg-white rounded-xl p-6 border">
-            <h2 className="font-semibold mb-4">News Image *</h2>
+            <h2 className="font-semibold mb-4">News Image</h2>
 
             {!preview ? (
               <div className="border-2 border-dashed rounded-lg p-6 text-center">
@@ -196,22 +225,23 @@ const AddNews = () => {
             )}
           </div>
 
-          {/* Status */}
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              name="status"
-              checked={formik.values.status === "1"}
-              onChange={(e) =>
-                formik.setFieldValue("status", e.target.checked ? "1" : "0")
-              }
-              className="w-5 h-5"
-            />
+          {/* Status Checkbox */}
+          {/* <div className="bg-white rounded-xl p-6 border"> */}
+            <label className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={formik.values.status === "1"}
+                onChange={(e) =>
+                  formik.setFieldValue("status", e.target.checked ? "1" : "0")
+                }
+                className="w-5 h-5"
+              />
 
-            <span className="text-sm font-medium">
-              {formik.values.status === "1" ? "Published" : "Unpublished"}
-            </span>
-          </label>
+              <span className="text-sm font-medium">
+                {formik.values.status === "1" ? "Published" : "Unpublished"}
+              </span>
+            </label>
+          {/* </div> */}
 
           {/* Buttons */}
           <div className="space-y-3">
@@ -219,7 +249,7 @@ const AddNews = () => {
               type="submit"
               className="w-full bg-[#29d2cc] text-white py-3 rounded-lg"
             >
-              Publish News
+              Update News
             </button>
 
             <Link
@@ -235,4 +265,4 @@ const AddNews = () => {
   );
 };
 
-export default AddNews;
+export default EditNews;

@@ -37,7 +37,7 @@ export default function LoginPage() {
       setTimeout(() => {
         setApiMessage("");
       }, 10000);
-      router.push("/");
+      router.push("/dashboard");
     },
     onError: (error) => {
       setApiError(error?.response?.data?.message || "Something went wrong!");
@@ -75,6 +75,7 @@ export default function LoginPage() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("hello--->",)
 
     const validationErrors = validateForm(query);
     setErrors(validationErrors);

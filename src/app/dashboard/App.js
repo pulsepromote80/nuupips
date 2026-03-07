@@ -11,6 +11,8 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { GTCFxAuthProvider } from "./contexts/GTCFxAuthContext";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import {
 	Home,
 	User as NavUser,
@@ -45,6 +47,7 @@ import LessonView from "./pages/others/LessonView";
 import NupipsIncomes from "./pages/user/NupipsIncomes";
 import Competition from "./pages/Competition";
 import Notifications from "./pages/user/Notifications";
+import { usePathname } from "next/navigation";
 
 // Navigation configuration — defined outside component to avoid re-creation
 const NAVBAR_LINKS = [
@@ -144,10 +147,10 @@ const LayoutWrapper = React.memo(({ children }) => {
 			setIsMobile(mobile);
 			setSidebarOpen(!mobile);
 		};
-		
+
 		// Set initial values on client side
 		handleResize();
-		
+
 		window.addEventListener("resize", handleResize);
 		window.toggleSidebar = toggleSidebar;
 		return () => {
@@ -166,8 +169,7 @@ const LayoutWrapper = React.memo(({ children }) => {
 
 	const contentClasses = useMemo(
 		() =>
-			`pb-0 pt-0 md:pb-8 md:pt-2 max-w-full ${
-				!isMobile && sidebarOpen ? "max-w-[calc(100vw-16rem)]" : ""
+			`pb-0 pt-0 md:pb-8 md:pt-2 max-w-full ${!isMobile && sidebarOpen ? "max-w-[calc(100vw-16rem)]" : ""
 			}`,
 		[isMobile, sidebarOpen],
 	);
@@ -212,217 +214,219 @@ LayoutWrapper.displayName = "LayoutWrapper";
 // Main App Component
 export default function App() {
 	return (
-		<Router>
-			<AuthProvider>
-				<GTCFxAuthProvider>
-					<LayoutWrapper>
-						<Routes>
+		<>
+			<Router>
+				<AuthProvider>
+					<GTCFxAuthProvider>
+						<LayoutWrapper>
+							<Routes>
 
 
-							{/* Protected routes */}
-							<Route
-								path="/dashboard"
-								element={
-								
+								{/* Protected routes */}
+								<Route
+									path="/dashboard"
+									element={
+
 										<Dashboard />
-								
-								}
-							/>
-							<Route
-								path="/notifications"
-								element={
-								
+
+									}
+								/>
+								<Route
+									path="/notifications"
+									element={
+
 										<Notifications />
-								
-								}
-							/>
-							<Route
-								path="/nupips-team"
-								element={
-							
+
+									}
+								/>
+								<Route
+									path="/nupips-team"
+									element={
+
 										<NupipsTeam />
-							
-								}
-							/>
-							<Route
-								path="/nupips-incomes"
-								element={
-							
+
+									}
+								/>
+								<Route
+									path="/nupips-incomes"
+									element={
+
 										<NupipsIncomes />
-							
-								}
-							/>
-							<Route
-								path="/shop"
-								element={
-				
+
+									}
+								/>
+								<Route
+									path="/shop"
+									element={
+
 										<Shop />
-						
-								}
-							/>
-							<Route
-								path="/orders"
-								element={
-									<>
-										<Orders />
-									</>
-								}
-							/>
-							<Route
-								path="/product/:id"
-								element={
-									<>
-										<ProductItem />
-									</>
-								}
-							/>
-							<Route
-								path="/place-order"
-								element={
-									<>
-										<PlaceOrder />
-									</>
-								}
-							/>
-							<Route
-								path="/learn"
-								element={
-									<>
-										<Learn />
-									</>
-								}
-							/>
-							<Route
-								path="/learn/course/:id"
-								element={
-									<>
-										<CourseView />
-									</>
-								}
-							/>
-							<Route
-								path="/learn/course/:courseId/lesson/:lessonId"
-								element={
-									<>
-										<LessonView />
-									</>
-								}
-							/>
-							<Route
-								path="/profile"
-								element={
-									<>
-										<Profile />
-									</>
-								}
-							/>
-							<Route
-								path="/competition"
-								element={
-									<>
-										<Competition />
-									</>
-								}
-							/>
-							<Route
-								path="/brokers"
-								element={
-									<>
-										<BrokerSelection />
-									</>
-								}
-							/>
 
-							{/* Wallet routes */}
-							<Route
-								path="/deposit"
-								element={
-									<>
-										<Deposit />
-									</>
-								}
-							/>
-							<Route
-								path="/withdrawal"
-								element={
-									<>
-										<Withdrawal />
-									</>
-								}
-							/>
-							<Route
-								path="/transaction-history"
-								element={
-									<>
-										<TransactionHistory />
-									</>
-								}
-							/>
-							<Route
-								path="/transfer"
-								element={
-									<>
-										<Transfer />
-									</>
-								}
-							/>
+									}
+								/>
+								<Route
+									path="/orders"
+									element={
+										<>
+											<Orders />
+										</>
+									}
+								/>
+								<Route
+									path="/product/:id"
+									element={
+										<>
+											<ProductItem />
+										</>
+									}
+								/>
+								<Route
+									path="/place-order"
+									element={
+										<>
+											<PlaceOrder />
+										</>
+									}
+								/>
+								<Route
+									path="/learn"
+									element={
+										<>
+											<Learn />
+										</>
+									}
+								/>
+								<Route
+									path="/learn/course/:id"
+									element={
+										<>
+											<CourseView />
+										</>
+									}
+								/>
+								<Route
+									path="/learn/course/:courseId/lesson/:lessonId"
+									element={
+										<>
+											<LessonView />
+										</>
+									}
+								/>
+								<Route
+									path="/profile"
+									element={
+										<>
+											<Profile />
+										</>
+									}
+								/>
+								<Route
+									path="/competition"
+									element={
+										<>
+											<Competition />
+										</>
+									}
+								/>
+								<Route
+									path="/brokers"
+									element={
+										<>
+											<BrokerSelection />
+										</>
+									}
+								/>
 
-							{/* GTC FX routes */}
-							<Route
-								path="//auth"
-								element={
-									<>
-										<Auth />
-									</>
-								}
-							/>
-							<Route
-								path="//dashboard"
-								element={
-									<>
+								{/* Wallet routes */}
+								<Route
+									path="/deposit"
+									element={
 										<>
-											<Dashboard />
+											<Deposit />
 										</>
-									</>
-								}
-							/>
-							<Route
-								path="//profit-logs"
-								element={
-									<>
+									}
+								/>
+								<Route
+									path="/withdrawal"
+									element={
 										<>
-											<ProfitLogs />
+											<Withdrawal />
 										</>
-									</>
-								}
-							/>
-							<Route
-								path="//agent/members"
-								element={
-									<>
+									}
+								/>
+								<Route
+									path="/transaction-history"
+									element={
 										<>
-											<AgentMembers />
+											<TransactionHistory />
 										</>
-									</>
-								}
-							/>
-							{/* NEW — Smart Copy */}
-							<Route
-								path="//smart-copy"
-								element={
-									<>
+									}
+								/>
+								<Route
+									path="/transfer"
+									element={
 										<>
-											<SmartCopy />
+											<Transfer />
 										</>
-									</>
-								}
-							/>
-						
-				
-						</Routes>
-					</LayoutWrapper>
-				</GTCFxAuthProvider>
-			</AuthProvider>
-		</Router>
+									}
+								/>
+
+								{/* GTC FX routes */}
+								<Route
+									path="//auth"
+									element={
+										<>
+											<Auth />
+										</>
+									}
+								/>
+								<Route
+									path="//dashboard"
+									element={
+										<>
+											<>
+												<Dashboard />
+											</>
+										</>
+									}
+								/>
+								<Route
+									path="//profit-logs"
+									element={
+										<>
+											<>
+												<ProfitLogs />
+											</>
+										</>
+									}
+								/>
+								<Route
+									path="//agent/members"
+									element={
+										<>
+											<>
+												<AgentMembers />
+											</>
+										</>
+									}
+								/>
+								{/* NEW — Smart Copy */}
+								<Route
+									path="//smart-copy"
+									element={
+										<>
+											<>
+												<SmartCopy />
+											</>
+										</>
+									}
+								/>
+
+
+							</Routes>
+						</LayoutWrapper>
+					</GTCFxAuthProvider>
+				</AuthProvider>
+			</Router>
+		</>
 	);
 }

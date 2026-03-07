@@ -256,7 +256,7 @@ const Sidebar = ({ isOpen, onToggle, navigationLinks, config }) => {
       )}
 
       <aside
-        className={`fixed left-0 md:left-4 top-40 md:top-40 h-[calc(100vh-4rem)] md:h-[calc(100vh-7rem)] bg-white/95 backdrop-blur-xl border border-gray-200 z-50 transition-all duration-300 ease-in-out ${
+        className={`fixed left-0 md:left-4 top-20 md:top-20 h-[calc(100vh-4rem)] md:h-[calc(100vh-7rem)] bg-white/95 backdrop-blur-xl border border-gray-200 z-50 transition-all duration-300 ease-in-out ${
           isOpen ? "w-64" : isMobile ? "w-16" : "w-16"
         } ${isMobile ? "rounded-r-2xl" : "rounded-2xl"} ${
           isMobile && !isOpen

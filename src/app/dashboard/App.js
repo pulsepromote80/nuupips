@@ -217,7 +217,7 @@ export default function App() {
 				<GTCFxAuthProvider>
 					<LayoutWrapper>
 						<Routes>
-							
+
 
 							{/* Protected routes */}
 							<Route

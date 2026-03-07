@@ -149,24 +149,24 @@ const Dashboard = () => {
 	const [data, setData] = useState(null);
 	const [hideBalances, setHideBalances] = useState(false);
 
-	const load = async () => {
-		setLoading(true);
-		setError(null);
-		try {
-			const res = await api.get("/profile/dashboard");
-			setData(res.data);
-		} catch (e) {
-			setError(e.response?.data?.message || "Failed to load dashboard");
-		} finally {
-			setLoading(false);
-		}
-	};
+	// const load = async () => {
+	// 	setLoading(true);
+	// 	setError(null);
+	// 	try {
+	// 		const res = await api.get("/profile/dashboard");
+	// 		setData(res.data);
+	// 	} catch (e) {
+	// 		setError(e.response?.data?.message || "Failed to load dashboard");
+	// 	} finally {
+	// 		setLoading(false);
+	// 	}
+	// };
 
-	useEffect(() => {
-		load();
-	}, []);
+	// useEffect(() => {
+	// 	load();
+	// }, []);
 
-	if (loading) {
+	if (!loading) {
 		return (
 			<div className="min-h-screen flex items-center justify-center bg-white">
 				<div className="flex flex-col items-center gap-4">
@@ -179,27 +179,27 @@ const Dashboard = () => {
 		);
 	}
 
-	if (error) {
-		return (
-			<div className="min-h-screen flex items-center justify-center bg-white p-4">
-				<div className="text-center max-w-md">
-					<div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
-						<AlertCircle className="w-8 h-8 text-red-600" />
-					</div>
-					<h2 className="text-xl font-bold text-gray-900 mb-2">
-						Failed to Load Dashboard
-					</h2>
-					<p className="text-gray-600 mb-6">{error}</p>
-					<button
-						onClick={load}
-						className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-medium transition-all shadow-md hover:shadow-lg"
-					>
-						Try Again
-					</button>
-				</div>
-			</div>
-		);
-	}
+	// if (error) {
+	// 	return (
+	// 		<div className="min-h-screen flex items-center justify-center bg-white p-4">
+	// 			<div className="text-center max-w-md">
+	// 				<div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
+	// 					<AlertCircle className="w-8 h-8 text-red-600" />
+	// 				</div>
+	// 				<h2 className="text-xl font-bold text-gray-900 mb-2">
+	// 					Failed to Load Dashboard
+	// 				</h2>
+	// 				<p className="text-gray-600 mb-6">{error}</p>
+	// 				<button
+	// 					onClick={load}
+	// 					className="px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-medium transition-all shadow-md hover:shadow-lg"
+	// 				>
+	// 					Try Again
+	// 				</button>
+	// 			</div>
+	// 		</div>
+	// 	);
+	// }
 
 	const {
 		walletBalance = 0,
@@ -273,7 +273,7 @@ const Dashboard = () => {
 							)}
 						</button>
 						<button
-							onClick={load}
+							onClick=""
 							className="p-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition shadow-sm"
 						>
 							<RefreshCw className="w-5 h-5 text-gray-600" />

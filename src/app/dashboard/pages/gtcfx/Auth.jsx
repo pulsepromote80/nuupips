@@ -251,7 +251,7 @@ const GTCFxAuth = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                <div className="p-5 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl border border-orange-200">
+                <div className="p-3 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl border border-orange-200">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center shadow-sm">
                       <DollarSign className="w-5 h-5 text-white" />

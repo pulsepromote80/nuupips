@@ -42,17 +42,9 @@ const Registration = () => {
   useEffect(() => {
     dispatch(getAllRegistration());
   }, [dispatch]);
-
- 
-
-
-
-   
-
    
   return (
     <div className="max-w-fullo bg-white px-4 rounded-lg">
-      
         <>
           <Table
             columns={Columns}
@@ -68,9 +60,6 @@ const Registration = () => {
             title={' All User Registration'}
           />
         </>
-    
-
-     
     </div>
   );
 };

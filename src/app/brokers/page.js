@@ -13,7 +13,7 @@ const LoadingScreen = () => (
 	</div>
 );
 
-export default function DashboardPage() {
+export default function BrokersPage() {
 	return (
 		<React.Suspense fallback={<LoadingScreen />}>
 			<App />

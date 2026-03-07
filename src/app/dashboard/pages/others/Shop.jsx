@@ -84,7 +84,7 @@ const Shop = () => {
     setCurrentPage(1);
   };
 
-  if (loading && products.length === 0) {
+  if (loading && products?.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="flex flex-col items-center gap-4">
@@ -262,7 +262,7 @@ const Shop = () => {
             <div className="flex justify-center items-center py-20">
               <Loader className="w-10 h-10 text-orange-600 animate-spin" />
             </div>
-          ) : products.length === 0 ? (
+          ) : products?.length === 0 ? (
             <div className="text-center py-20">
               <ShoppingBag className="w-20 h-20 text-gray-300 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -274,7 +274,7 @@ const Shop = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {products.map((product) => (
+              {products?.map((product) => (
                 <div
                   key={product._id}
                   className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300"

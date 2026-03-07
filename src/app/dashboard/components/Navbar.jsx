@@ -296,7 +296,7 @@ const Navbar = ({ toggleSidebar, navigationLinks, config }) => {
 	return (
 		<>
 			{/* DESKTOP NAVBAR */}
-			<nav className="fixed top-20 left-0 right-0 z-60 transition-all duration-500 ease-out md:top-4 md:left-4 md:right-4">
+			<nav className="fixed top-0 left-0 right-0 z-60 transition-all duration-500 ease-out md:top-4 md:left-4 md:right-4">
 				<div className="bg-white/95 backdrop-blur-xl rounded-none md:rounded-2xl border border-gray-200 w-full mx-auto transition-all duration-300">
 					<div className="relative px-4 lg:px-6">
 						<div className="flex items-center justify-between h-16 gap-4">

@@ -2,8 +2,10 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
+// Dynamically import the App component with SSR disabled to avoid document/window errors during prerender
 const App = dynamic(() => import("../dashboard/App"), { ssr: false });
 
+// Loading screen shown while the client-side app loads
 const LoadingScreen = () => (
 	<div className="min-h-screen flex items-center justify-center bg-linear-to-br from-orange-50 via-white to-orange-200">
 		<div className="text-center">
@@ -13,7 +15,7 @@ const LoadingScreen = () => (
 	</div>
 );
 
-export default function DashboardPage() {
+export default function NupipsTeamPage() {
 	return (
 		<React.Suspense fallback={<LoadingScreen />}>
 			<App />

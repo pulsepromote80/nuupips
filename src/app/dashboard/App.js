@@ -6,6 +6,7 @@ import {
 	Route,
 	Navigate,
 	useLocation,
+	Links,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { GTCFxAuthProvider } from "./contexts/GTCFxAuthContext";
@@ -131,6 +132,7 @@ const LayoutWrapper = React.memo(({ children }) => {
 
 	const sidebarLinks = useMemo(() => {
 		const links = [...BASE_SIDEBAR_LINKS];
+		console.log("Links--->", Links)
 		if (!gtcAuthenticated && !gtcUser) {
 			links.push(BROKER_CONNECTION_LINK);
 		}

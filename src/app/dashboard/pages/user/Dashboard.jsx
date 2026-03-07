@@ -90,35 +90,33 @@ const StatsCard = ({
 	iconBg = "bg-orange-500",
 	badgeColor = "bg-green-100 text-green-700",
 	badgeText,
-}) => (
-	<div
-		className={`bg-gradient-to-br ${gradientFrom} ${gradientTo} rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all`}
-	>
-		<div className="flex items-center justify-between mb-4">
-			<div
-				className={`w-12 h-12 ${iconBg} rounded-xl flex items-center justify-center shadow-sm`}
-			>
-				<Icon className="w-6 h-6 text-white" />
-			</div>
-			{badgeText && (
-				<span
-					className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${badgeColor}`}
-				>
-					{trend > 0 ? (
-						<ArrowUpRight className="w-3 h-3" />
-					) : trend < 0 ? (
-						<ArrowDownRight className="w-3 h-3" />
-					) : null}
-					{badgeText}
-				</span>
-			)}
-		</div>
-		<p className="text-gray-700 text-sm font-semibold mb-1">{label}</p>
-		<p className="text-3xl font-bold text-gray-900 mb-2">{value}</p>
-		{subtitle && <p className="text-xs text-gray-600">{subtitle}</p>}
-	</div>
-);
+	className
+}) => {
 
+	console.log("Abhishek ---", className);
+
+	return (
+		<div
+			className={`bg-gradient-to-br ${gradientFrom} ${gradientTo} ${className} rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all`}
+		>
+			<div className="flex items-center justify-between mb-4">
+				<div className={`w-12 h-12 ${iconBg} rounded-xl flex items-center justify-center shadow-sm`}>
+					<Icon className="w-6 h-6 text-white" />
+				</div>
+
+				{badgeText && (
+					<span className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${badgeColor}`}>
+						{badgeText}
+					</span>
+				)}
+			</div>
+
+			<p className="text-gray-700 text-sm font-semibold mb-1">{label}</p>
+			<p className="text-3xl font-bold text-gray-900 mb-2">{value}</p>
+			{subtitle && <p className="text-xs text-gray-600">{subtitle}</p>}
+		</div>
+	);
+};
 // Quick Action Card
 const QuickActionCard = ({
 	icon: Icon,
@@ -290,7 +288,9 @@ const Dashboard = () => {
 						subtitle="Available balance"
 						gradientFrom="from-orange-50"
 						gradientTo="to-orange-100"
-						iconBg="bg-orange-500"
+						iconBg="bg-orange-500" 
+						className="card-1"
+						
 					/>
 
 					<StatsCard
@@ -301,6 +301,7 @@ const Dashboard = () => {
 						gradientFrom="from-green-50"
 						gradientTo="to-green-100"
 						iconBg="bg-green-500"
+							className="card-2"
 					/>
 
 					<StatsCard
@@ -311,11 +312,13 @@ const Dashboard = () => {
 						gradientFrom="from-blue-50"
 						gradientTo="to-blue-100"
 						iconBg="bg-blue-500"
+						className="card-3"
 					/>
 
 					<StatsCard
 						icon={DollarSign}
 						label="Net Deposits"
+						className="card-4"
 						value={formatCurrency(financials.netDeposits)}
 						gradientFrom={
 							netDeposits >= 0 ? "from-emerald-50" : "from-red-50"
@@ -366,8 +369,8 @@ const Dashboard = () => {
 									Referral Network
 								</h3>
 							</div>
-							<div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-								<div className="p-5 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl border border-orange-200">
+							<div className="grid grid-cols-4 sm:grid-cols-4 gap-4">
+								<div className="p-3 card-8 from-orange-50 to-orange-100 rounded-xl border border-orange-200">
 									<p className="text-xs text-orange-700 font-semibold mb-2">
 										Direct Referrals
 									</p>
@@ -376,7 +379,7 @@ const Dashboard = () => {
 											0}
 									</p>
 								</div>
-								<div className="p-5 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl border border-purple-200">
+								<div className="p-3 card-5 from-purple-50 to-purple-100 rounded-xl border border-purple-200">
 									<p className="text-xs text-purple-700 font-semibold mb-2">
 										Total Downline
 									</p>
@@ -385,7 +388,7 @@ const Dashboard = () => {
 											0}
 									</p>
 								</div>
-								<div className="p-5 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
+								<div className="p-3 card-6 from-blue-50 to-blue-100 rounded-xl border border-blue-200">
 									<p className="text-xs text-blue-700 font-semibold mb-2">
 										Total Agents
 									</p>
@@ -393,7 +396,7 @@ const Dashboard = () => {
 										{downlineStats.totalAgents || 0}
 									</p>
 								</div>
-								<div className="p-5 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200">
+								<div className="p-3 card-7 from-green-50 to-green-100 rounded-xl border border-green-200">
 									<p className="text-xs text-green-700 font-semibold mb-2">
 										Team Balance
 									</p>
@@ -432,7 +435,7 @@ const Dashboard = () => {
 											{formatCurrency(orders.totalSpent)}
 										</p>
 									</div>
-									<div className="p-5 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl border border-orange-200">
+									<div className="p-3 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl border border-orange-200">
 										<p className="text-xs text-orange-700 font-semibold mb-2">
 											Pending
 										</p>
@@ -454,8 +457,8 @@ const Dashboard = () => {
 								Pending Transactions
 							</h3>
 							<div className="space-y-3">
-								<div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border border-orange-200">
-									<div className="flex items-center justify-between">
+								<div className="p-3 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border border-orange-200 card-8">
+									<div className="flex items-center justify-between ">
 										<span className="text-xs text-orange-700 font-semibold">
 											Pending Deposits
 										</span>
@@ -466,7 +469,7 @@ const Dashboard = () => {
 										</span>
 									</div>
 								</div>
-								<div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
+								<div className="p-3 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200 card-6">
 									<div className="flex items-center justify-between">
 										<span className="text-xs text-blue-700 font-semibold">
 											Pending Withdrawals
@@ -490,7 +493,7 @@ const Dashboard = () => {
 								</h3>
 							</div>
 							<div className="space-y-3">
-								<div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
+								<div className="p-3 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200 card-7">
 									<div className="flex items-center justify-between">
 										<span className="text-xs text-green-700 font-semibold">
 											Rebate Income
@@ -502,7 +505,7 @@ const Dashboard = () => {
 										</span>
 									</div>
 								</div>
-								<div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200">
+								<div className="p-3 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200 card-5">
 									<div className="flex items-center justify-between">
 										<span className="text-xs text-purple-700 font-semibold">
 											Affiliate Income
@@ -515,7 +518,7 @@ const Dashboard = () => {
 									</div>
 								</div>
 								<div className="h-px bg-gray-200 my-2" />
-								<div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border border-orange-200">
+								<div className="p-3 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border border-orange-200 card-8">
 									<div className="flex items-center justify-between">
 										<span className="text-sm font-bold text-gray-900">
 											Total Income

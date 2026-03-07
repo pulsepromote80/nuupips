@@ -137,12 +137,12 @@ const Sidebar = ({ isOpen, onToggle, navigationLinks, config }) => {
         )}
 
         {active && isOpen && !hasSubitems && (
-          <div className="relative ml-auto w-2 h-2 bg-orange-600 rounded-full shadow-lg shadow-orange-600/50 animate-pulse"></div>
+          <div className="absolute ml-auto w-2 h-2 bg-orange-600 rounded-full shadow-lg shadow-orange-600/50 animate-pulse mene-dot"></div>
         )}
       </>
     );
 
-    const buttonClasses = `group relative flex items-center w-full px-3 py-3 text-sm font-medium rounded-xl transition-all duration-300 ease-out ${
+    const buttonClasses = `group relative flex items-center w-full px-3 py-3 text-sm font-medium rounded-xl transition-all duration-300 ease-out tag-flexing ${
       active
         ? "bg-orange-50 text-orange-600 border border-orange-200 shadow-md"
         : "text-gray-700 hover:bg-orange-50 hover:text-orange-600 hover:shadow-md"
@@ -281,7 +281,7 @@ const Sidebar = ({ isOpen, onToggle, navigationLinks, config }) => {
         {/* Sidebar Content */}
         <div className="relative flex flex-col h-full">
           {/* Navigation Links */}
-          <nav className="flex-1 px-3 py-6 space-y-2 overflow-y-auto">
+          <nav className="flex-1 px-3 py-6 space-y-2 overflow-y-auto pt-4">
             {navigationLinks.map((item) => (
               <div key={item.name} className="menu-item">
                 {renderMenuItem(item)}

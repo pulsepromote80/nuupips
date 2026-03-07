@@ -120,7 +120,7 @@ const Shop = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Error Alert */}
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
+            <div className="mb-6 mt-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3 ">
               <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="text-sm text-red-700">{error}</p>
@@ -135,18 +135,18 @@ const Shop = () => {
           <div className="mb-8 space-y-4">
             {/* Search Bar */}
             <div className="relative">
-              <Search className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" />
+              <Search className="w-5 h-5 text-gray-400 absolute left-4 -translate-y-1/2 search-icon" />
               <input
                 type="text"
                 placeholder="Search products..."
                 value={searchTerm}
                 onChange={handleSearch}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent search-input-padding-add"
               />
             </div>
 
             {/* Filter Row */}
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3 mt-3">
               {/* Category Filter */}
               <select
                 value={categoryFilter}
@@ -154,7 +154,7 @@ const Shop = () => {
                   setCategoryFilter(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                className="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent w-auto"
               >
                 <option value="all">All Categories</option>
                 {categories.map((cat) => (
@@ -170,7 +170,7 @@ const Shop = () => {
                   setShowBestsellers(!showBestsellers);
                   setCurrentPage(1);
                 }}
-                className={`px-4 py-2 rounded-xl font-medium transition-colors flex items-center gap-2 ${
+                className={`px-4 py-2 rounded-xl font-medium transition-colors flex items-center gap-2 w-auto ${
                   showBestsellers
                     ? "bg-orange-600 text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -183,7 +183,7 @@ const Shop = () => {
               {/* Price Filter Toggle */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors flex items-center gap-2"
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors flex items-center gap-2 w-auto"
               >
                 <Filter className="w-4 h-4" />
                 Price Filter
@@ -202,7 +202,7 @@ const Shop = () => {
                 searchTerm) && (
                 <button
                   onClick={clearFilters}
-                  className="px-4 py-2 text-red-600 hover:text-red-700 font-medium flex items-center gap-2"
+                  className="px-4 py-2 text-red-600 hover:text-red-700 font-medium flex items-center gap-2 w-auto"
                 >
                   <X className="w-4 h-4" />
                   Clear Filters
@@ -216,7 +216,7 @@ const Shop = () => {
 
             {/* Price Range Filter */}
             {showFilters && (
-              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 mt-3">
                 <p className="font-semibold text-gray-900 mb-3">
                   Filter by Price
                 </p>
@@ -248,7 +248,7 @@ const Shop = () => {
                   />
                   <button
                     onClick={handlePriceFilter}
-                    className="px-6 py-2 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors"
+                    className="px-6 py-2 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors button-bg-1"
                   >
                     Apply
                   </button>

@@ -314,9 +314,9 @@ const Competition = () => {
                 <button
                   key={filter.value}
                   onClick={() => setFilterStatus(filter.value)}
-                  className={`flex-1 min-w-[80px] px-3 sm:px-4 py-2 rounded-lg font-medium transition-all flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm whitespace-nowrap ${
+                  className={`flex-1 min-w-[80px] px-3 text-orange-700 sm:px-4 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm whitespace-nowrap ${
                     filterStatus === filter.value
-                      ? "bg-orange-100 text-orange-700 border border-orange-300"
+                      ? "card-8 card-text-orange"
                       : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                   }`}
                 >

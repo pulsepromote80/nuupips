@@ -9572,3 +9572,86 @@
       justify-content: center;
     }
   }
+
+
+  .card-1 {
+    background: linear-gradient(to right, #FFF2E0, #FFF2E1);
+  }
+
+  .card-2 {
+    background: linear-gradient(to right, #E6FDEE, #E5FCED);
+  }
+
+  .card-3 {
+    background: linear-gradient(to right, #E5F0FE, #E4EFFE);
+  }
+
+  .card-4 {
+    background: linear-gradient(to right, #DFFCED, #DDFBEC);
+  }
+
+  .card-8 {
+    background: linear-gradient(to right, #FFF2E0, #FFF2E1);
+    border: 1px solid #fb923c !important;
+  }
+
+  .card-5 {
+    background: linear-gradient(to right, #F5EDFF, #F7F0FF);
+    border: 1px solid #cbacf1 !important;
+  }
+
+  .card-6 {
+    background: linear-gradient(to right, #DCEBFE, #EEF5FF);
+    border: 1px solid #8abcff !important;
+  }
+
+  .card-7 {
+    background: linear-gradient(to right, #E4FCEC, #EEFDF2);
+    border: 1px solid #b5c5b9 !important;
+  }
+
+  .card-1:hover {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 31%) !important;
+    transition: .5s all ease;
+  }
+
+  .card-2:hover {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 31%) !important;
+    transition: .5s all ease;
+  }
+
+  .card-3:hover {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 31%) !important;
+    transition: .5s all ease;
+  }
+
+  .card-4:hover {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 31%) !important;
+    transition: .5s all ease;
+  }
+
+  .gradient-2 {
+    background: linear-gradient(90deg, #5b6cf9 0%, #9b4dff 50%, #ff3ea5 100%);
+  }
+
+  .border-bottom-orenge {
+    border-bottom: 1px solid #fb923c66;
+  }
+
+  .search-input-padding-add{
+        padding: 0px 40px;
+  }
+  .search-icon {
+    top: 35%;
+}::-webkit-scrollbar-thumb {
+    background: #fb923c;
+    border-radius: 10px;
+}.button-bg-1 {
+    background: #F54900;
+}
+.button-bg-1:hover {
+    background: #f54b00;
+}
+.card-text-orange{
+color: #ca3500;
+}

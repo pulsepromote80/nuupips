@@ -151,13 +151,13 @@ const Learn = () => {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="relative">
-              <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 search-icon search-icon" />
               <input
                 type="text"
                 placeholder="Search courses..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all search-input-padding-add"
               />
             </div>
 
@@ -178,7 +178,7 @@ const Learn = () => {
 
         {/* Courses Grid */}
         {courses.length === 0 ? (
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-16 text-center">
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 text-center">
             <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <PlayCircle className="w-10 h-10 text-gray-400" />
             </div>

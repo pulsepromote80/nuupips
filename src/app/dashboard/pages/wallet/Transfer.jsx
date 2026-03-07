@@ -256,13 +256,13 @@ const Transfer = () => {
                 Username or Email
               </label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 search-icon" />
                 <input
                   type="text"
                   value={receiverIdentifier}
                   onChange={handleReceiverChange}
                   placeholder="Enter username or email"
-                  className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl bg-gray-50 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                  className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl bg-gray-50 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all search-input-padding-add"
                 />
                 {searching && (
                   <Loader className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 animate-spin" />
@@ -297,7 +297,7 @@ const Transfer = () => {
                 Amount (USD)
               </label>
               <div className="relative">
-                <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 search-icon" />
                 <input
                   type="number"
                   value={amount}
@@ -305,7 +305,7 @@ const Transfer = () => {
                   placeholder="Enter amount"
                   min="0"
                   step="0.01"
-                  className={`w-full pl-12 pr-4 py-4 text-lg border rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
+                  className={`w-full pl-12 pr-4 py-4 text-lg border rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all search-input-padding-add ${
                     amountError
                       ? "border-red-300 bg-red-50"
                       : "border-gray-200 bg-gray-50"

@@ -528,7 +528,7 @@ const NupipsTeam = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200 card-3">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
                 <Users className="w-5 h-5 text-white" />
@@ -541,7 +541,7 @@ const NupipsTeam = () => {
             <p className="text-xs text-blue-700 mt-1">Members you referred</p>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
+          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200 card-5">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
                 <Network className="w-5 h-5 text-white" />
@@ -556,7 +556,7 @@ const NupipsTeam = () => {
             <p className="text-xs text-purple-700 mt-1">All levels combined</p>
           </div>
 
-          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border border-green-200">
+          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border border-green-200 card-7">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
                 <CheckCircle className="w-5 h-5 text-white" />
@@ -573,7 +573,7 @@ const NupipsTeam = () => {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 border border-orange-200">
+          <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 border border-orange-200 card-8">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
                 <Target className="w-5 h-5 text-white" />
@@ -591,7 +591,7 @@ const NupipsTeam = () => {
 
         {/* GTC Registration Summary */}
         {stats?.gtcStats && (
-          <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 mb-8 shadow-lg">
+          <div className="bg-gradient-to-r gradient-1 from-green-500 to-emerald-600 rounded-xl p-6 mb-8 shadow-lg">
             <div className="text-white">
               <div>
                 <div className="flex items-center gap-3 mb-2">
@@ -636,12 +636,12 @@ const NupipsTeam = () => {
         )}
 
         {/* Total Commissions Summary Card */}
-        <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl p-6 mb-8 shadow-lg">
+        <div className="bg-gradient-to-r gradient-2 from-indigo-500 via-purple-500 to-pink-500 rounded-xl p-6 mb-8 shadow-lg">
           <div className="flex items-center justify-between text-white">
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <Wallet className="w-6 h-6" />
-                <h3 className="text-lg font-semibold">
+                <h3 className="text-lg font-semibold text-white">
                   Total Commissions Earned
                 </h3>
               </div>
@@ -677,7 +677,7 @@ const NupipsTeam = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Top 10 by Wallet Balance */}
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-green-600" />
               </div>
@@ -709,7 +709,7 @@ const NupipsTeam = () => {
 
           {/* Bottom 10 by Wallet Balance */}
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
                 <TrendingDown className="w-5 h-5 text-red-600" />
               </div>
@@ -768,13 +768,13 @@ const NupipsTeam = () => {
           {/* Basic Filters */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             <div className="relative">
-              <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 search-icon" />
               <input
                 type="text"
                 placeholder="Search name, username, email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent search-input-padding-add"
               />
             </div>
 
@@ -883,7 +883,7 @@ const NupipsTeam = () => {
 
         {/* Direct Team Table */}
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-          <div className="p-4 bg-gradient-to-r from-orange-50 to-orange-100 border-b border-orange-200">
+          <div className="p-4 bg-gradient-to-r border-bottom-orenge from-orange-50 to-orange-100 border-b border-orange-200 p-4 border-t border-gray-100 bg-orange-50">
             <h2 className="text-lg font-bold text-gray-900">
               Direct Team Members ({filteredTeam.length})
             </h2>
@@ -894,10 +894,10 @@ const NupipsTeam = () => {
           </div>
 
           {filteredTeam.length === 0 ? (
-            <div className="p-12 text-center">
+            <div className="p-5 text-center">
               <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
               <p className="text-gray-500 font-medium">No team members found</p>
-              <p className="text-sm text-gray-400 mt-2">
+              <p className="text-sm text-gray-400 ">
                 {searchTerm || filterType !== "all" || filterStatus !== "all"
                   ? "Try adjusting your filters"
                   : "Start building your team by sharing your referral link"}

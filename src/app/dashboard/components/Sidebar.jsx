@@ -281,7 +281,7 @@ const Sidebar = ({ isOpen, onToggle, navigationLinks, config }) => {
         {/* Sidebar Content */}
         <div className="relative flex flex-col h-full">
           {/* Navigation Links */}
-          <nav className="flex-1 px-3 py-6 space-y-2 overflow-y-auto pt-4">
+          <nav className="flex-1 px-2 py-6 space-y-2 overflow-y-auto pt-4">
             {navigationLinks.map((item) => (
               <div key={item.name} className="menu-item">
                 {renderMenuItem(item)}

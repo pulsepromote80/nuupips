@@ -116,7 +116,6 @@ const LoadingScreen = () => (
 
 
 
-
 // Layout Wrapper Component
 const LayoutWrapper = React.memo(({ children }) => {
 	const location = useLocation();
@@ -165,7 +164,7 @@ const LayoutWrapper = React.memo(({ children }) => {
 		() =>
 			isMobile
 				? "pt-16 px-0 md:px-6"
-				: `pt-20 md:pt-24 px-4 sm:px-6 lg:px-8 ${sidebarOpen ? "ml-64" : "ml-16"}`,
+				: `pt-20 md:pt-24 px-4 sm:px-6 lg:px-8 ${sidebarOpen ? "custom-ml-64 " : "custom-ml-24"}`,
 		[isMobile, sidebarOpen],
 	);
 

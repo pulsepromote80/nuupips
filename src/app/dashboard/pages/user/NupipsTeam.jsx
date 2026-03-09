@@ -485,7 +485,7 @@ const NupipsTeam = () => {
         <title>My Team - Wallet</title>
       </Helmet>
 
-      <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8">
+      <div className="bg-white p-4 sm:p-6 lg:p-8 phone-margin-top">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">

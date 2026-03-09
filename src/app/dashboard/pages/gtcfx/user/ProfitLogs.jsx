@@ -429,7 +429,7 @@ const GTCFxProfitLogs = () => {
         <title>Profit Logs - GTC FX</title>
       </Helmet>
 
-      <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8">
+      <div className="bg-white p-4 sm:p-6 lg:p-8">
         {/* Header */}
         <div className="mb-8">
           <button

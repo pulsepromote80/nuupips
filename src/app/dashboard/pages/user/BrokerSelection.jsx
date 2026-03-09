@@ -58,7 +58,7 @@ const BrokerSelection = () => {
   const gtcFxConnected = gtcAuthenticated && gtcUser;
 
   return (
-    <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8">
+    <div className="bg-white p-4 sm:p-6 lg:p-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">

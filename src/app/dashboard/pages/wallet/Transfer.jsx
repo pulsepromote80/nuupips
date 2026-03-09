@@ -148,7 +148,7 @@ const Transfer = () => {
         <Helmet>
           <title>Transfer Successful - Wallet</title>
         </Helmet>
-        <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8">
+        <div className="bg-white p-4 sm:p-6 lg:p-8">
           <div className="max-w-2xl mx-auto">
             <div className="bg-white rounded-xl p-8 border border-gray-200 shadow-sm text-center">
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -215,7 +215,7 @@ const Transfer = () => {
       <Helmet>
         <title>Transfer Funds - Wallet</title>
       </Helmet>
-      <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8">
+      <div className="bg-white p-4 sm:p-6 lg:p-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">

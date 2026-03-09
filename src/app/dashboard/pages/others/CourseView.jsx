@@ -87,7 +87,7 @@ const CourseView = () => {
         <title>{course.name} - Learn</title>
       </Helmet>
 
-      <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8">
+      <div className="bg-white p-4 sm:p-6 lg:p-8">
         {/* Back Button */}
         <button
           onClick={() => navigate("/learn")}

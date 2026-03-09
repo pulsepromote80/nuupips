@@ -135,7 +135,7 @@ const GTCFxStrategyDetail = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8">
+      <div className="bg-white p-4 sm:p-6 lg:p-8">
         <button
           onClick={() => navigate("/gtcfx/strategies")}
           className="flex items-center gap-2 text-orange-600 hover:text-orange-700 font-medium mb-8 transition-colors"
@@ -187,7 +187,7 @@ const GTCFxStrategyDetail = () => {
         <title>{strategy.name} - GTC FX</title>
       </Helmet>
 
-      <div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8">
+      <div className="bg-white p-4 sm:p-6 lg:p-8">
         {/* Back Button */}
         <button
           onClick={() => navigate("/gtcfx/strategies")}

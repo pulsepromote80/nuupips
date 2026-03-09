@@ -178,7 +178,7 @@ const LayoutWrapper = React.memo(({ children }) => {
 	if (!showLayout) return <>{children}</>;
 
 	return (
-		<div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50/30 relative overflow-x-hidden">
+		<div className="bg-linear-to-br from-gray-50 to-blue-50/30 relative">
 			<Navbar
 				toggleSidebar={toggleSidebar}
 				navigationLinks={NAVBAR_LINKS}
@@ -196,12 +196,12 @@ const LayoutWrapper = React.memo(({ children }) => {
 					onClick={toggleSidebar}
 				/>
 			)}
-			<div className="bg-orange-50">
+			<div className="bg-orange-50 phone-mrgt">
 				<main
-					className={`transition-all duration-300 ease-in-out ${mainClasses}`}
+					className={`transition-all duration-300 ease-in-out  ${mainClasses}`}
 				>
 					<div className={contentClasses}>
-						<div className="md:rounded-xl overflow-hidden relative top-8 border border-gray-200">
+						<div className="md:rounded-xl overflow-hidden relative top-8 border border-gray-200 ">
 							{children}
 						</div>
 					</div>

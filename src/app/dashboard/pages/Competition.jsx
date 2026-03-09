@@ -250,7 +250,12 @@ const Competition = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4">
+         
+
+          {/* Connection Banner */}
+          {!gtcAuthenticated && (
+            <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-xl p-4 sm:p-6 text-white mb-4 sm:mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-2 sm:gap-3">
                 <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-orange-600" />
@@ -272,19 +277,14 @@ const Competition = () => {
               <span className="hidden sm:inline">Refresh</span>
             </button>
           </div>
-
-          {/* Connection Banner */}
-          {!gtcAuthenticated && (
-            <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-xl p-4 sm:p-6 text-white mb-4 sm:mb-6">
+             
               <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center flex-shrink-0">
-                  <AlertCircle className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                </div>
+                
                 <div className="flex-1 text-center md:text-left">
                   <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">
                     Connect GTC FX to Compete
                   </h2>
-                  <p className="text-orange-100 mb-3 sm:mb-4 text-sm sm:text-base">
+                  <p className="text-black mb-3 sm:mb-4 text-sm sm:text-base">
                     Join competitions and see your real-time rankings
                   </p>
                   <button

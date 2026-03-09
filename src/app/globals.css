@@ -787,3 +787,13 @@ body {
 .custom-ml-64 {
   margin-left: 14rem !important; /* same as Tailwind ml-64 */
 }
+
+
+@media(max-width:991px){
+.phone-margin-top {
+    margin-top: 35px;
+}.phone-mrgt{
+   margin-top: 35px;
+   background: transparent;
+}
+}

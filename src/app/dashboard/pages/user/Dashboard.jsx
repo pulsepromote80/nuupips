@@ -242,7 +242,7 @@ const Dashboard = () => {
 				<title>Dashboard</title>
 			</Helmet>
 
-			<div className="min-h-screen bg-white p-4 sm:p-6 lg:p-8">
+			<div className="bg-white p-4 sm:p-6 lg:p-8">
 				{/* Header */}
 				<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
 					<div className="flex items-center gap-3">
@@ -369,7 +369,7 @@ const Dashboard = () => {
 									Referral Network
 								</h3>
 							</div>
-							<div className="grid grid-cols-4 sm:grid-cols-4 gap-4">
+							<div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
 								<div className="p-3 card-8 from-orange-50 to-orange-100 rounded-xl border border-orange-200">
 									<p className="text-xs text-orange-700 font-semibold mb-2">
 										Direct Referrals

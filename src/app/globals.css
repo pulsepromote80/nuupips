@@ -783,3 +783,7 @@ body {
     position: absolute;
     right: 10px;
 }
+
+.custom-ml-64 {
+  margin-left: 14rem !important; /* same as Tailwind ml-64 */
+}

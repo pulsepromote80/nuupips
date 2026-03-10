@@ -194,7 +194,7 @@ const PlaceOrder = () => {
       <div className="min-h-screen bg-white">
         {/* Header */}
         <div className="bg-linear-to-r from-orange-50 to-orange-100 py-8 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+          <div className="">
             <button
               onClick={() => navigate("/shop")}
               className="flex items-center gap-2 text-gray-700 hover:text-gray-900 mb-4 transition-colors font-medium"
@@ -210,7 +210,7 @@ const PlaceOrder = () => {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Alerts */}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">

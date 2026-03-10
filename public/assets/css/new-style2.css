@@ -9669,3 +9669,7 @@
     align-items: center;
     justify-content: space-between;
   }
+  
+.bg-gradient-to-r {
+    background: radial-gradient(circle, rgb(255 242 224) 0%, rgb(255 105 0) 100%);
+}

@@ -451,7 +451,7 @@ const GTCFxUnsubscribe = () => {
                   {/* Amount Input (for partial) */}
                   {redeemMode === "partial" && (
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2 mt-3">
                         Withdrawal Amount
                       </label>
                       <div className="relative">

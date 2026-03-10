@@ -247,9 +247,9 @@ const Transfer = () => {
           </div>
         )}
 
-        <form onSubmit={handleTransfer} className="max-w-4xl mx-auto space-y-6">
+        <form onSubmit={handleTransfer} className="">
           {/* Receiver */}
-          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm mt-3">
             <h2 className="text-xl font-bold text-gray-900 mb-6">Recipient</h2>
             <div className="relative">
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -290,7 +290,7 @@ const Transfer = () => {
           </div>
 
           {/* Amount */}
-          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm mt-3">
             <h2 className="text-xl font-bold text-gray-900 mb-6">Amount</h2>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -339,7 +339,7 @@ const Transfer = () => {
           </div>
 
           {/* Note */}
-          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm mt-3">
             <h2 className="text-xl font-bold text-gray-900 mb-6">
               Note (Optional)
             </h2>

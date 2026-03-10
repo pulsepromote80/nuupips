@@ -238,10 +238,11 @@ const Navbar = ({ toggleSidebar, navigationLinks, config }) => {
 			) : !gtcAuthenticated ? (
 				<Link
 					to="/gtcfx/auth"
-					className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 border border-gray-300 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 group"
+					className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gray-50 to-gray-100
+					 hover:from-gray-100 hover:to-gray-200 border border-gray-300 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 group"
 				>
-					<Lock className="w-4 h-4 text-gray-500 group-hover:text-gray-700 transition-colors" />
-					<span className="text-sm font-semibold text-gray-600 group-hover:text-gray-800 transition-colors">
+					<Lock className="w-4 h-4 text-black group-hover:text-gray-700 transition-colors" />
+					<span className="text-sm font-semibold text-balack group-hover:text-gray-800 transition-colors">
 						Connect GTC FX
 					</span>
 				</Link>

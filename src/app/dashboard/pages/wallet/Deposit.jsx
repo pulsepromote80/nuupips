@@ -284,7 +284,7 @@ const Deposit = () => {
 
         {/* Step 1: Amount and Crypto Selection */}
         {step === 1 && (
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="">
             {/* Amount Input */}
             <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
               <h2 className="text-xl font-bold text-gray-900 mb-6">
@@ -337,7 +337,7 @@ const Deposit = () => {
             </div>
 
             {/* Crypto Selection */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm mt-3">
               <h2 className="text-xl font-bold text-gray-900 mb-6">
                 Select Cryptocurrency
               </h2>

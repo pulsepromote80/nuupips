@@ -233,7 +233,7 @@ const Orders = () => {
       <div className="min-h-screen bg-white">
         {/* Header */}
         <div className="bg-linear-to-r from-orange-50 to-orange-100 py-12 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+          <div className="">
             <h1 className="text-4xl font-bold text-gray-900 flex items-center gap-3">
               <Package className="w-10 h-10 text-orange-600" />
               My Orders
@@ -244,7 +244,7 @@ const Orders = () => {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Alerts */}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">

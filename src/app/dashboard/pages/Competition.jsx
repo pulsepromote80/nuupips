@@ -247,7 +247,7 @@ const Competition = () => {
         <title>Trading Competitions - Nupips</title>
       </Helmet>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
          

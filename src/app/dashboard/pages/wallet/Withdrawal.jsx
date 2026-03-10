@@ -341,7 +341,7 @@ const Withdrawal = () => {
           </div>
         )}
 
-        <form onSubmit={handleWithdraw} className="max-w-4xl mx-auto space-y-6">
+        <form onSubmit={handleWithdraw} className="">
           {/* Withdrawal Method */}
           <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
             <h2 className="text-xl font-bold text-gray-900 mb-6">
@@ -395,7 +395,7 @@ const Withdrawal = () => {
           </div>
 
           {/* Amount */}
-          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm mt-3">
             <h2 className="text-xl font-bold text-gray-900 mb-6">
               Withdrawal Amount
             </h2>
@@ -430,7 +430,7 @@ const Withdrawal = () => {
 
             {/* Fee calculation */}
             {amount && !amountError && selectedOption && (
-              <div className="mt-4 p-4 bg-gray-50 rounded-xl space-y-2 text-sm">
+              <div className="mt-4 p-4 bg-gray-50 rounded-xl space-y-2 text-sm mt-3">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Withdrawal Amount:</span>
                   <span className="font-semibold">${amount}</span>
@@ -455,7 +455,7 @@ const Withdrawal = () => {
 
           {/* Crypto Details */}
           {withdrawalMethod === "crypto" && (
-            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm mt-3">
               <h2 className="text-xl font-bold text-gray-900 mb-6">
                 Cryptocurrency Details
               </h2>

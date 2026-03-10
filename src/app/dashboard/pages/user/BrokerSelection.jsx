@@ -175,7 +175,7 @@ const BrokerSelection = () => {
                     <button
                       onClick={() => handleBrokerSelect(broker)}
                       disabled={!broker.available}
-                      className={`w-full py-3 px-4 rounded-xl font-semibold transition-all flex items-center justify-between group ${
+                      className={`w-full py-3 px-4 rounded-xl font-semibold transition-all flex items-center justify-between group btn btn-primary ${
                         isConnected
                           ? "bg-green-600 hover:bg-green-700 text-white"
                           : "bg-linear-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-md hover:shadow-lg"
@@ -191,7 +191,7 @@ const BrokerSelection = () => {
                   {!broker.available && (
                     <button
                       disabled
-                      className="w-full py-3 px-4 bg-gray-200 text-gray-500 rounded-xl font-semibold cursor-not-allowed"
+                      className="w-full py-3 px-4 bg-gray-200 text-gray-500 rounded-xl font-semibold cursor-not-allowed btn btn-info"
                     >
                       Coming Soon
                     </button>

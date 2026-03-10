@@ -180,7 +180,7 @@ const Sidebar = ({ isOpen, onToggle, navigationLinks, config }) => {
                   key={subItem.name}
                   to={subItem.href}
                   onClick={handleSubitemClick}
-                  className={`block w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-200 ${
+                  className={`sb-menu-flex block w-full text-left px-4 py-3 rounded-lg text-sm transition-all duration-200 ${
                     isActiveLink(subItem.href)
                       ? "bg-orange-50 text-orange-600"
                       : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
@@ -204,7 +204,7 @@ const Sidebar = ({ isOpen, onToggle, navigationLinks, config }) => {
                 key={subItem.name}
                 to={subItem.href}
                 onClick={handleSubitemClick}
-                className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                className={`sb-menu-flex block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
                   isActiveLink(subItem.href)
                     ? "bg-orange-50 text-orange-600 border-l-2 border-orange-600"
                     : "text-gray-600 hover:bg-orange-50 hover:text-orange-600 border-l-2 border-gray-200 hover:border-orange-400"
@@ -227,7 +227,7 @@ const Sidebar = ({ isOpen, onToggle, navigationLinks, config }) => {
                 key={subItem.name}
                 to={subItem.href}
                 onClick={handleSubitemClick}
-                className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                className={`sb-menu-flex block w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
                   isActiveLink(subItem.href)
                     ? "bg-orange-50 text-orange-600 border-l-2 border-orange-600"
                     : "text-gray-600 hover:bg-orange-50 hover:text-orange-600 border-l-2 border-gray-200 hover:border-orange-400"

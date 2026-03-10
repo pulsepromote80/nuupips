@@ -9638,20 +9638,34 @@
     border-bottom: 1px solid #fb923c66;
   }
 
-  .search-input-padding-add{
-        padding: 0px 40px;
+  .search-input-padding-add {
+    padding: 0px 40px;
   }
+
   .search-icon {
     top: 35%;
-}::-webkit-scrollbar-thumb {
+  }
+
+  ::-webkit-scrollbar-thumb {
     background: #fb923c;
     border-radius: 10px;
-}.button-bg-1 {
+  }
+
+  .button-bg-1 {
     background: #F54900;
-}
-.button-bg-1:hover {
+  }
+
+  .button-bg-1:hover {
     background: #f54b00;
-}
-.card-text-orange{
-color: #ca3500;
-}
+  }
+
+  .card-text-orange {
+    color: #ca3500;
+  }
+
+  
+.sb-menu-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
